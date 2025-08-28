@@ -1,22 +1,62 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import '../styles/globals.css';
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Corazón Latino - Restaurant Sud-Américain authentique à Paris. Découvrez les saveurs d'Argentine, du Mexique et du Brésil." } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <!-- SEO Meta Tags -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="keywords" content="restaurant sud-américain, cuisine argentine, tacos mexicains, caipirinha, asado, Paris, restaurant latino" />
+
+    <!-- Schema.org pour Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Corazón Latino",
+      "image": "/images/restaurant/facade.jpg",
+      "description": "Restaurant sud-américain authentique proposant les spécialités d'Argentine, du Mexique et du Brésil",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "456 Rue des Tropiques",
+        "addressLocality": "Paris",
+        "postalCode": "75011",
+        "addressCountry": "FR"
+      },
+      "telephone": "+33 1 45 67 89 10",
+      "openingHours": "Tu-Su 18:00-02:00",
+      "servesCuisine": ["South American", "Argentine", "Mexican", "Brazilian"],
+      "priceRange": "€€",
+      "acceptsReservations": true,
+      "hasMenu": "https://corazonlatino.fr/menu",
+      "ambiance": "festive, authentic, warm"
+    }
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preload des polices importantes pour la performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

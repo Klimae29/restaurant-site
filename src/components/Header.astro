@@ -1,0 +1,210 @@
+---
+// src/components/Header.astro
+---
+
+<header class="fixed top-0 w-full z-50 bg-red-700/95 backdrop-blur-md shadow-xl transition-all duration-300" id="header">
+  <div class="max-w-6xl mx-auto px-4">
+    <nav class="flex items-center justify-between py-4">
+
+      <!-- Logo Central -->
+      <div class="flex-1 md:flex-none">
+        <a href="#" class="block text-center md:text-left group">
+          <h1 class="font-['Dancing_Script'] text-4xl md:text-5xl font-bold text-yellow-400 hover:text-white transition-all duration-300 group-hover:scale-110 transform">
+            Corazón Latino
+          </h1>
+          <p class="font-sans text-xs text-white/80 tracking-widest uppercase mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            Authentic Sud-American
+          </p>
+        </a>
+      </div>
+
+      <!-- Navigation Desktop (cachée sur mobile) -->
+      <div class="hidden lg:flex items-center space-x-8 ml-auto">
+        <a href="#platos" class="nav-link">Platos</a>
+        <a href="#menu" class="nav-link">Menu</a>
+        <a href="#restaurant" class="nav-link">Restaurant</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
+        <a href="#reservar" class="bg-yellow-400 text-gray-800 text-sm px-6 py-2 rounded-full hover:scale-105 transform transition-all duration-300 font-semibold">
+          ¡Reservar!
+        </a>
+      </div>
+
+      <!-- Menu Burger (visible sur mobile/tablet) -->
+      <div class="lg:hidden">
+        <button
+          id="burger-btn"
+          class="burger-menu relative w-8 h-8 focus:outline-none group"
+          aria-label="Toggle menu"
+        >
+          <!-- Lignes du burger avec animation -->
+          <div class="burger-line absolute left-0 w-8 h-0.5 bg-yellow-400 transition-all duration-300 ease-in-out transform origin-center"></div>
+          <div class="burger-line absolute left-0 w-8 h-0.5 bg-yellow-400 transition-all duration-300 ease-in-out transform origin-center"></div>
+          <div class="burger-line absolute left-0 w-8 h-0.5 bg-yellow-400 transition-all duration-300 ease-in-out transform origin-center"></div>
+
+          <!-- Effet de cercle au survol -->
+          <div class="absolute inset-0 rounded-full bg-yellow-400/20 scale-0 group-hover:scale-150 transition-transform duration-300"></div>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Menu Mobile Fullscreen -->
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 bg-gradient-to-br from-red-700 via-orange-600 to-yellow-400 transform translate-x-full transition-transform duration-500 ease-in-out">
+    <div class="flex flex-col justify-center items-center h-full relative overflow-hidden">
+
+      <!-- Motif décoratif en arrière-plan -->
+      <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-20 left-20 w-32 h-32 border-2 border-white rounded-full"></div>
+        <div class="absolute bottom-40 right-16 w-24 h-24 border-2 border-white rotate-45"></div>
+        <div class="absolute top-1/2 left-8 w-16 h-16 bg-white/10 rounded-full"></div>
+      </div>
+
+      <!-- Bouton fermer -->
+      <button
+        id="close-menu"
+        class="absolute top-8 right-8 w-12 h-12 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-all duration-300 group"
+      >
+        <svg class="w-6 h-6 text-white group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <!-- Navigation items -->
+      <nav class="flex flex-col items-center space-y-8 z-10">
+        <a href="#platos" class="mobile-nav-item font-['Dancing_Script'] text-4xl text-white hover:text-yellow-400 transform hover:scale-110 transition-all duration-300">
+          Platos
+        </a>
+        <a href="#menu" class="mobile-nav-item font-['Dancing_Script'] text-4xl text-white hover:text-yellow-400 transform hover:scale-110 transition-all duration-300">
+          Menu
+        </a>
+        <a href="#restaurant" class="mobile-nav-item font-['Dancing_Script'] text-4xl text-white hover:text-yellow-400 transform hover:scale-110 transition-all duration-300">
+          Restaurant
+        </a>
+        <a href="#contacto" class="mobile-nav-item font-['Dancing_Script'] text-4xl text-white hover:text-yellow-400 transform hover:scale-110 transition-all duration-300">
+          Contacto
+        </a>
+
+        <!-- Bouton réservation spécial -->
+        <div class="mt-8 relative">
+          <a href="#reservar" class="inline-block bg-yellow-400 text-gray-800 font-bold text-xl px-8 py-4 rounded-full hover:bg-white hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            ¡Reservar Mesa!
+          </a>
+          <div class="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-white rounded-full opacity-75 group-hover:opacity-100 animate-pulse"></div>
+        </div>
+
+        <!-- Infos contact dans le menu -->
+        <div class="mt-12 text-center text-white/80 space-y-2">
+          <p class="font-sans text-sm">📞 +33 1 45 67 89 10</p>
+          <p class="font-sans text-sm">📍 456 Rue des Tropiques, Paris</p>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Animation du menu burger
+  document.addEventListener('DOMContentLoaded', function() {
+    const burgerBtn = document.getElementById('burger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenu = document.getElementById('close-menu');
+    const header = document.getElementById('header');
+    const burgerLines = document.querySelectorAll('.burger-line');
+    const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+
+    // Position des lignes du burger
+    if (burgerLines.length >= 3) {
+      burgerLines[0].style.top = '8px';
+      burgerLines[1].style.top = '16px';
+      burgerLines[2].style.top = '24px';
+    }
+
+    // Ouvrir le menu
+    function openMenu() {
+      if (mobileMenu) {
+        mobileMenu.classList.remove('translate-x-full');
+        mobileMenu.classList.add('translate-x-0');
+      }
+
+      // Animation des lignes burger vers X
+      if (burgerLines.length >= 3) {
+        burgerLines[0].style.transform = 'translateY(8px) rotate(45deg)';
+        burgerLines[1].style.opacity = '0';
+        burgerLines[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+      }
+
+      // Animation d'apparition des éléments du menu
+      mobileNavItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+        }, index * 100 + 200);
+      });
+
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Fermer le menu
+    function closeMenuFunc() {
+      if (mobileMenu) {
+        mobileMenu.classList.remove('translate-x-0');
+        mobileMenu.classList.add('translate-x-full');
+      }
+
+      // Restaurer les lignes burger
+      if (burgerLines.length >= 3) {
+        burgerLines[0].style.transform = 'none';
+        burgerLines[1].style.opacity = '1';
+        burgerLines[2].style.transform = 'none';
+      }
+
+      // Reset des éléments du menu
+      mobileNavItems.forEach((item) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+      });
+
+      document.body.style.overflow = 'auto';
+    }
+
+    // Initialiser les éléments du menu comme invisibles
+    mobileNavItems.forEach((item) => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(20px)';
+      item.style.transition = 'all 0.3s ease-out';
+    });
+
+    // Event listeners
+    burgerBtn?.addEventListener('click', openMenu);
+    closeMenu?.addEventListener('click', closeMenuFunc);
+
+    // Fermer le menu quand on clique sur un lien
+    mobileNavItems.forEach(item => {
+      item.addEventListener('click', closeMenuFunc);
+    });
+
+    // Effet de scroll sur le header
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > 100) {
+        header?.classList.add('bg-red-700');
+        header?.classList.remove('bg-red-700/95');
+      } else {
+        header?.classList.remove('bg-red-700');
+        header?.classList.add('bg-red-700/95');
+      }
+
+      // Auto-hide header en scrollant vers le bas
+      if (currentScrollY > lastScrollY && currentScrollY > 200) {
+        if (header) header.style.transform = 'translateY(-100%)';
+      } else {
+        if (header) header.style.transform = 'translateY(0)';
+      }
+
+      lastScrollY = currentScrollY;
+    });
+  });
+</script>

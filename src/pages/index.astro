@@ -1,11 +1,173 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Header from '../components/Header.astro';
+import HeroSection from '../components/HeroSection.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Corazón Latino - Restaurant Sud-Américain">
+  <Header />
+  <HeroSection />
+
+  <main>
+
+    <!-- Section Spécialités -->
+    <section class="py-20 bg-neutral-warm relative overflow-hidden">
+      <!-- Motif géométrique en arrière-plan -->
+      <div class="absolute inset-0 opacity-5">
+        <div class="w-full h-full" style="background-image: repeating-linear-gradient(45deg, var(--color-primary), var(--color-primary) 10px, transparent 10px, transparent 50px);"></div>
+      </div>
+
+      <div class="container-custom text-center relative z-10">
+        <h2 class="primary-font text-5xl text-primary mb-4">Nuestras Especialidades</h2>
+        <div class="w-24 h-1 bg-accent mx-auto mb-8"></div>
+
+        <div class="grid md:grid-cols-3 gap-8 mt-12">
+          <div class="text-center group">
+            <div class="text-6xl mb-4 group-hover:scale-110 transition-transform">🥩</div>
+            <h3 class="primary-font text-2xl text-secondary mb-3">Asado Argentino</h3>
+            <p class="secondary-font text-lg text-neutral-dark">
+              Viande grillée à la perfection selon la tradition de la pampa
+            </p>
+          </div>
+
+          <div class="text-center group">
+            <div class="text-6xl mb-4 group-hover:scale-110 transition-transform">🌮</div>
+            <h3 class="primary-font text-2xl text-secondary mb-3">Tacos Auténticos</h3>
+            <p class="secondary-font text-lg text-neutral-dark">
+              Tortillas fraîches garnies selon les recettes traditionnelles mexicaines
+            </p>
+          </div>
+
+          <div class="text-center group">
+            <div class="text-6xl mb-4 group-hover:scale-110 transition-transform">🍹</div>
+            <h3 class="primary-font text-2xl text-secondary mb-3">Caipirinhas</h3>
+            <p class="secondary-font text-lg text-neutral-dark">
+              Cocktails brésiliens préparés avec de la cachaça premium
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Ambiance -->
+    <section class="py-20 bg-gradient-to-r from-secondary to-primary text-white">
+      <div class="container-custom">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="accent-font text-5xl mb-6">Fiesta & Sabor</h2>
+            <p class="secondary-font text-xl mb-6 leading-relaxed">
+              Plongez dans l'atmosphère festive de l'Amérique latine.
+              Musique live, décoration authentique et service chaleureux
+              vous transportent directement sous les tropiques.
+            </p>
+            <div class="flex gap-4 text-sm">
+              <span class="bg-accent text-neutral-dark px-3 py-1 rounded-full">Musique Live</span>
+              <span class="bg-accent text-neutral-dark px-3 py-1 rounded-full">Soirées Dansantes</span>
+              <span class="bg-accent text-neutral-dark px-3 py-1 rounded-full">Happy Hour</span>
+            </div>
+          </div>
+          <div class="text-center">
+            <div class="text-8xl mb-4">🎵</div>
+            <p class="accent-font text-2xl">Tous les vendredis soirs</p>
+            <p class="secondary-font text-lg">Groupe de salsa en live</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section class="py-20 bg-neutral-warm">
+      <div class="container-custom">
+        <div class="text-center mb-12">
+          <h2 class="primary-font text-5xl text-primary mb-4">¡Visitanos!</h2>
+          <div class="w-24 h-1 bg-accent mx-auto"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12">
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="text-3xl text-secondary">📍</div>
+              <div>
+                <h3 class="primary-font text-xl text-secondary mb-2">Adresse</h3>
+                <p class="secondary-font text-lg">456 Rue des Tropiques<br>75011 Paris</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="text-3xl text-secondary">📞</div>
+              <div>
+                <h3 class="primary-font text-xl text-secondary mb-2">Téléphone</h3>
+                <p class="secondary-font text-lg">+33 1 45 67 89 10</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="text-3xl text-secondary">🕒</div>
+              <div>
+                <h3 class="primary-font text-xl text-secondary mb-2">Horaires</h3>
+                <p class="secondary-font">Mardi - Dimanche: 18h - 2h<br>
+                Fermé le lundi</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-xl p-8">
+            <h3 class="primary-font text-2xl text-primary mb-6 text-center">Réservation</h3>
+            <form class="space-y-4">
+              <input type="text" placeholder="Nom" class="w-full p-3 border border-neutral-300 rounded-lg focus:border-secondary focus:outline-none">
+              <input type="email" placeholder="Email" class="w-full p-3 border border-neutral-300 rounded-lg focus:border-secondary focus:outline-none">
+              <input type="tel" placeholder="Téléphone" class="w-full p-3 border border-neutral-300 rounded-lg focus:border-secondary focus:outline-none">
+              <select class="w-full p-3 border border-neutral-300 rounded-lg focus:border-secondary focus:outline-none">
+                <option>Nombre de personnes</option>
+                <option>2 personnes</option>
+                <option>4 personnes</option>
+                <option>6 personnes</option>
+                <option>8+ personnes</option>
+              </select>
+              <button type="submit" class="w-full bg-secondary hover:bg-primary text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                ¡Reservar!
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-neutral-dark text-white py-12">
+    <div class="container-custom">
+      <div class="grid md:grid-cols-3 gap-8 text-center md:text-left">
+        <div>
+          <h3 class="accent-font text-3xl text-accent mb-4">Corazón Latino</h3>
+          <p class="secondary-font opacity-80">
+            L'authenticité sud-américaine au cœur de Paris
+          </p>
+        </div>
+
+        <div>
+          <h4 class="primary-font text-xl mb-4">Suivez-nous</h4>
+          <div class="flex gap-4 justify-center md:justify-start">
+            <span class="text-2xl hover:text-accent cursor-pointer transition-colors">📘</span>
+            <span class="text-2xl hover:text-accent cursor-pointer transition-colors">📷</span>
+            <span class="text-2xl hover:text-accent cursor-pointer transition-colors">🐦</span>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="primary-font text-xl mb-4">Newsletter</h4>
+          <p class="secondary-font text-sm opacity-80 mb-4">
+            Recevez nos événements spéciaux
+          </p>
+          <div class="flex gap-2">
+            <input type="email" placeholder="Email" class="flex-1 p-2 rounded bg-neutral-700 text-white placeholder-gray-400 focus:outline-none focus:bg-neutral-600">
+            <button class="bg-accent text-neutral-dark px-4 py-2 rounded hover:bg-secondary hover:text-white transition-colors">OK</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-neutral-600 mt-8 pt-8 text-center">
+        <p class="secondary-font opacity-60">© 2025 Corazón Latino - Todos los derechos reservados</p>
+      </div>
+    </div>
+  </footer>
 </Layout>
