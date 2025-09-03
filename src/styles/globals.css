@@ -114,7 +114,7 @@ body {
   min-height: 100vh;
 }
 
-/* Animations */
+/* Animations - VERSIONS CORRIGÉES SANS PROBLÈMES DE LAYOUT */
 .fade-in-delay-1 { animation: fadeInUp 0.8s ease-out 0.2s both; }
 .fade-in-delay-2 { animation: fadeInUp 0.8s ease-out 0.4s both; }
 .fade-in-delay-3 { animation: fadeInUp 0.8s ease-out 0.6s both; }
@@ -125,7 +125,7 @@ body {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(30px); /* Réduit de 50px à 30px */
   }
   to {
     opacity: 1;
@@ -133,9 +133,10 @@ body {
   }
 }
 
-@keyframes slideDown {
+/* Animation slideDown DÉSACTIVÉE - remplacée par fadeIn */
+@keyframes slideDownOLD {
   from {
-    transform: translateY(-100%);
+    transform: translateY(-100%); /* PROBLÉMATIQUE */
     opacity: 0;
   }
   to {
@@ -144,9 +145,19 @@ body {
   }
 }
 
-/* Styles additionnels */
+/* Nouvelle animation pour le header - SANS translateY(-100%) */
+@keyframes fadeInHeader {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Styles additionnels - ANIMATIONS CORRIGÉES */
 header {
-  animation: slideDown 0.6s ease-out;
+  animation: fadeInHeader 0.6s ease-out; /* Plus de slideDown */
 }
 
 .burger-menu:hover .burger-line {
@@ -160,8 +171,11 @@ button, .btn {
   outline: none;
 }
 
+/* HOVER EFFECTS CORRIGÉS - sans translateY qui cause des problèmes */
 button:hover, .btn:hover {
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); SUPPRIMÉ - causait des problèmes */
+  filter: brightness(1.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 /* Responsive */
@@ -189,4 +203,14 @@ button:hover, .btn:hover {
   .hero-content {
     padding-bottom: 3rem !important;
   }
+}
+
+/* Classes utilitaires pour éviter les transforms problématiques */
+.no-transform {
+  transform: none !important;
+}
+
+.safe-hover:hover {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
 }

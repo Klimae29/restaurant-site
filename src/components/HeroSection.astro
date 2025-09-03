@@ -1,5 +1,5 @@
 ---
-// src/components/HeroSection.astro
+// src/components/HeroSection.astro - Version avec parallax corrigé
 ---
 
 <section class="hero-section relative min-h-screen flex items-end justify-center overflow-hidden">
@@ -30,12 +30,8 @@
     </div>
   </div>
 
-
   <!-- Contenu principal -->
   <div class="hero-content relative z-20 text-center pb-20 px-4 max-w-6xl mx-auto pt-24 md:pt-32">
-
-
-
     <!-- Titre principal avec effet typewriter -->
     <h1 class="hero-title mb-8">
       <span class="font-['Dancing_Script'] text-6xl md:text-8xl lg:text-9xl font-bold text-yellow-400 drop-shadow-2xl block leading-none mb-4 hero-text-shadow">
@@ -45,24 +41,6 @@
         au cœur de l'Amérique du Sud
       </span>
     </h1>
-
-
-    <!-- Boutons d'action -->
-    <div class="hero-buttons flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 fade-in-delay-5">
-      <a href="#menu" class="btn-hero-primary group relative overflow-hidden">
-        <span class="relative z-10 flex items-center gap-3">
-          Découvrir la Carte
-        </span>
-        <div class="absolute inset-0 bg-gradient-to-r from-orange-600 to-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-      </a>
-
-      <a href="#reservar" class="btn-hero-secondary group relative overflow-hidden">
-        <span class="relative z-10 flex items-center gap-3">
-          Réserver une Table
-        </span>
-        <div class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-      </a>
-    </div>
 
     <!-- Indicateurs sociaux avec rating Google -->
     <div class="hero-social flex flex-col md:flex-row justify-center items-center gap-6 text-white/60 fade-in-delay-6">
@@ -131,39 +109,41 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Effet parallax sur l'arrière-plan
+    // Variables pour optimisation
+    let ticking = false;
+    let lastScrollY = 0;
+
     const heroBg = document.querySelector('.hero-bg');
     const heroContent = document.querySelector('.hero-content');
+    const heroSection = document.querySelector('.hero-section');
 
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const rate = scrolled * -0.5;
-      const rate2 = scrolled * -0.2;
 
-      if (heroBg) {
-        heroBg.style.transform = `translateY(${rate}px)`;
+
+    // Gestionnaire de scroll optimisé avec throttling
+    function handleScroll() {
+      lastScrollY = window.pageYOffset;
+
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
       }
-      if (heroContent) {
-        heroContent.style.transform = `translateY(${rate2}px)`;
-      }
-    });
+    }
 
-    // Animation des particules
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Animation des particules - optimisée
     const particles = document.querySelectorAll('.particle');
     particles.forEach((particle, index) => {
       // Position aléatoire
       particle.style.left = Math.random() * 100 + '%';
       particle.style.top = Math.random() * 100 + '%';
 
-      // Animation flottante avec keyframes CSS depuis globals.css
-      particle.style.animationName = 'fadeInUp';
-      particle.style.animationDuration = `${3 + Math.random() * 4}s`;
-      particle.style.animationIterationCount = 'infinite';
-      particle.style.animationTimingFunction = 'ease-in-out';
+      // Animation flottante simple
+      particle.style.animation = `float ${3 + Math.random() * 4}s ease-in-out infinite`;
       particle.style.animationDelay = `${Math.random() * 2}s`;
     });
 
-    // Observer pour les animations au scroll
+    // Observer pour les animations au scroll - optimisé
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
@@ -181,13 +161,39 @@
     document.querySelectorAll('[class*="fade-in-delay"]').forEach(el => {
       observer.observe(el);
     });
+
+    // Cleanup sur unload
+    window.addEventListener('beforeunload', () => {
+      window.removeEventListener('scroll', handleScroll);
+    });
   });
 </script>
 
 <style>
   .hero-section {
     min-height: 100vh;
-    background-attachment: fixed;
+    position: relative;
+    /* Suppression de l'isolation qui pouvait causer des problèmes */
+  }
+
+  /* Background statique - plus de transforms dynamiques */
+  .hero-bg {
+    /* Suppression des optimisations GPU qui causaient des problèmes */
+  }
+
+  /* Contenu statique */
+  .hero-content {
+    /* Suppression des optimisations GPU qui causaient des problèmes */
+  }
+
+  /* Animation float optimisée */
+  @keyframes float {
+    0%, 100% {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    50% {
+      transform: translate3d(0, -10px, 0) rotate(180deg);
+    }
   }
 
   /* Styles des boutons hero */
@@ -308,11 +314,6 @@
     }
   }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(180deg); }
-  }
-
   /* Animation de pulsation pour les éléments sociaux */
   .hero-social > div:hover {
     animation: pulse 1s infinite;
@@ -363,5 +364,10 @@
     .google-rating-hero {
       font-size: 0.9em;
     }
+  }
+
+  /* Préventions des débordements */
+  .hero-section * {
+    backface-visibility: hidden;
   }
 </style>

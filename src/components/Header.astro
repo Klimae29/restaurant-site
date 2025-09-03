@@ -38,7 +38,6 @@
       </div>
     </nav>
   </div>
-
   <!-- Menu Lateral Droit - Sans transparence -->
   <div id="mobile-menu" class="menu-overlay fixed top-0 right-0 h-full w-full md:w-96 bg-red-900 transform translate-x-full transition-all duration-500 ease-out shadow-2xl z-40">
     <!-- Background Pattern décoratif -->
@@ -49,7 +48,6 @@
     </div>
 
     <div class="relative h-full flex flex-col">
-
       <!-- Header du menu avec bouton fermer -->
       <div class="flex justify-between items-center p-6 border-b border-yellow-400/20">
         <div class="font-['Dancing_Script'] text-2xl md:text-3xl text-yellow-400 font-bold">
@@ -68,33 +66,29 @@
       <!-- Navigation principale -->
       <div class="flex-1 flex flex-col justify-center px-6 py-8 bg-red-800">
         <nav class="space-y-6">
-
-          <a href="#hero" class="nav-item block font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-white hover:text-yellow-400 transition-all duration-300 transform hover:translate-x-2 border-b border-transparent hover:border-yellow-400/50 pb-2">
-            Inicio
+          <a href="#hero" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
+            🏠 Accueil
           </a>
 
-          <a href="#platos" class="nav-item block font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-white hover:text-yellow-400 transition-all duration-300 transform hover:translate-x-2 border-b border-transparent hover:border-yellow-400/50 pb-2">
-            Platos
+          <a href="#plats" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
+            🍽️ Nos Plats
           </a>
 
-          <a href="#menu" class="nav-item block font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-white hover:text-yellow-400 transition-all duration-300 transform hover:translate-x-2 border-b border-transparent hover:border-yellow-400/50 pb-2">
-            Menú
+          <a href="#menu" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
+            📋 La Carte
           </a>
 
-          <a href="#restaurant" class="nav-item block font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-white hover:text-yellow-400 transition-all duration-300 transform hover:translate-x-2 border-b border-transparent hover:border-yellow-400/50 pb-2">
-            Restaurante
+          <a href="#restaurant" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
+            📸 Le Restaurant
           </a>
 
-          <a href="#contacto" class="nav-item block font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-white hover:text-yellow-400 transition-all duration-300 transform hover:translate-x-2 border-b border-transparent hover:border-yellow-400/50 pb-2">
-            Contacto
+          <a href="#avis" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
+            ⭐ Avis Clients
           </a>
 
-          <!-- Bouton réservation -->
-          <div class="pt-8">
-            <a href="#reservar" class="block bg-yellow-400 hover:bg-white text-gray-800 font-bold text-lg px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 text-center shadow-lg">
-              ¡Reservar Mesa!
-            </a>
-          </div>
+          <a href="#contact" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
+            📞 Contact
+          </a>
         </nav>
       </div>
 
@@ -118,17 +112,17 @@
     </div>
   </div>
 
-  <!-- Overlay sombre pour le reste de l'écran quand le menu est ouvert -->
-  <div id="menu-backdrop" class="fixed inset-0 bg-black/50 opacity-0 pointer-events-none transition-all duration-500 z-30"></div>
+  <!-- Overlay sombre pour fermer le menu -->
+  <div id="menu-backdrop" class="fixed inset-0 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-500 z-30"></div>
 </header>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const burgerBtn = document.getElementById('burger-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuBackdrop = document.getElementById('menu-backdrop');
-    const closeMenu = document.getElementById('close-menu');
     const header = document.getElementById('header');
+    const burgerBtn = document.getElementById('burger-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenu = document.getElementById('close-menu');
+    const menuBackdrop = document.getElementById('menu-backdrop');
     const navItems = document.querySelectorAll('.nav-item');
     const burgerLines = document.querySelectorAll('.burger-line');
 
@@ -226,14 +220,14 @@
       }
     });
 
-    // Effet de scroll sur le header
+    // EFFET DE SCROLL CORRIGÉ - SANS translateY(-100%)
     let lastScrollY = window.scrollY;
     let ticking = false;
 
     function updateHeader() {
       const currentScrollY = window.scrollY;
 
-      // Changement de transparence
+      // Changement de transparence seulement
       if (currentScrollY > 50) {
         header.classList.remove('bg-red-700/95');
         header.classList.add('bg-red-700');
@@ -242,12 +236,26 @@
         header.classList.remove('bg-red-700');
       }
 
-      // Auto-hide/show header (sauf si menu ouvert)
+      // AUTO-HIDE/SHOW DÉSACTIVÉ - causait des problèmes de layout
+      // Le code ci-dessous est commenté pour éviter les problèmes
+      /*
       if (!isMenuOpen) {
         if (currentScrollY > lastScrollY && currentScrollY > 200) {
-          header.style.transform = 'translateY(-100%)';
+          header.style.transform = 'translateY(-100%)'; // PROBLÉMATIQUE
         } else {
           header.style.transform = 'translateY(0)';
+        }
+      }
+      */
+
+      // ALTERNATIVE : Réduction de l'opacité au lieu de cacher complètement
+      if (!isMenuOpen) {
+        if (currentScrollY > lastScrollY && currentScrollY > 200) {
+          header.style.opacity = '0.7';
+          header.style.pointerEvents = 'none'; // Évite les interactions parasites
+        } else {
+          header.style.opacity = '1';
+          header.style.pointerEvents = 'auto';
         }
       }
 
@@ -260,18 +268,21 @@
         requestAnimationFrame(updateHeader);
         ticking = true;
       }
-    });
+    }, { passive: true });
 
     // Smooth scroll pour les liens d'ancre
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+    navItems.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const targetElement = document.querySelector(href);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
         }
       });
     });
@@ -279,63 +290,66 @@
 </script>
 
 <style>
-  /* Transition fluide pour le menu latéral */
-  .menu-overlay {
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* Transitions douces pour le header */
+  #header {
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    /* Plus de transition sur transform pour éviter les problèmes */
   }
 
-  /* Animation des lignes du burger */
-  .burger-line {
-    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  /* Effet glow sur le bouton burger */
-  .burger-menu:hover {
-    filter: drop-shadow(0 0 8px rgba(255, 212, 63, 0.6));
-  }
-
-  /* Animation de pulsation pour les éléments de fond - réduite */
-  @keyframes pulse {
-    0%, 100% {
-      opacity: 0.03;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.06;
-      transform: scale(1.02);
-    }
-  }
-
-  /* Amélioration de la lisibilité */
+  /* Animation hover pour les nav items */
   .nav-item {
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+    position: relative;
+    overflow: hidden;
   }
 
-  /* Amélioration du contraste pour le titre du menu */
-  .font-\[\'Dancing_Script\'\] {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  .nav-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
   }
 
-  /* Responsive adjustments */
+  .nav-item:hover::before {
+    left: 100%;
+  }
+
+  /* Style pour le burger menu */
+  .burger-line {
+    transform-origin: center;
+  }
+
+  /* Responsive */
   @media (max-width: 768px) {
     .nav-item {
-      font-size: 2rem !important;
+      font-size: 1.125rem;
+      padding: 1rem 1.5rem;
+    }
+
+    #mobile-menu {
+      width: 100%;
     }
   }
 
-  /* Smooth animations */
-  * {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  /* Effet de glow sur le logo */
+  #header:hover .bg-gradient-to-r {
+    box-shadow: 0 0 20px rgba(255, 212, 63, 0.5);
   }
 
-  /* Amélioration du backdrop blur pour les navigateurs */
-  @supports (backdrop-filter: blur(10px)) {
-    .backdrop-blur-md {
-      backdrop-filter: blur(12px);
+  /* Animation des éléments décoratifs */
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
     }
-    .backdrop-blur-sm {
-      backdrop-filter: blur(6px);
+    50% {
+      opacity: .5;
     }
   }
 </style>

@@ -1,11 +1,12 @@
 ---
-// src/components/DishCarousel.astro - Version défilante minimaliste
+// src/components/DishCarousel.astro - Version avec espacement corrigé
 import { dishes } from '../data/dishes.js';
 ---
 
-<section class="dish-carousel-section py-16 bg-white overflow-hidden">
-  <!-- Header simple -->
-  <div class="text-center mb-12">
+<!-- Ajout d'une classe spécifique et suppression des paddings verticaux par défaut -->
+<section class="dish-carousel-section bg-white overflow-hidden" style="padding-top: 0; margin-top: 0;">
+  <!-- Header simple avec contrôle précis de l'espacement -->
+  <div class="header-section text-center" style="padding-top: 2rem; margin-bottom: 1rem;">
     <h2 class="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-red-700 mb-4">
       Nuestros Platos
     </h2>
@@ -247,6 +248,12 @@ import { dishes } from '../data/dishes.js';
 </script>
 
 <style>
+  /* Forcer l'espacement de la section */
+  .dish-carousel-section {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
   /* Animation de défilement continu */
   .carousel-track {
     animation: scroll-horizontal 40s linear infinite;
@@ -264,6 +271,10 @@ import { dishes } from '../data/dishes.js';
 
   /* Responsive : plus rapide sur mobile */
   @media (max-width: 768px) {
+    .carousel-container {
+      height: 200px; /* Hauteur fixe mobile */
+    }
+
     .carousel-track {
       animation-duration: 30s;
     }
@@ -274,10 +285,10 @@ import { dishes } from '../data/dishes.js';
 
     @keyframes scroll-horizontal {
       0% {
-        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
       }
       100% {
-        transform: translateX(calc(-240px * 8));
+        transform: translate3d(calc(-240px * 8), 0, 0);
       }
     }
   }
