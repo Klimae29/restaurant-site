@@ -8,7 +8,7 @@ export const dishes = [
     price: "32€",
     category: "Viandes",
     country: "🇦🇷 Argentine",
-    image: "/images/plats/asado.jpg", // Vous remplacerez par vos vraies images
+    image: "/images/plats/plat1.webp",
     isSpicy: false,
     isPopular: true,
     preparationTime: "45 min",
@@ -21,7 +21,7 @@ export const dishes = [
     price: "18€",
     category: "Street Food",
     country: "🇲🇽 Mexique",
-    image: "/images/plats/tacos-pastor.jpg",
+    image: "/images/plats/plat2.jpg",
     isSpicy: true,
     isPopular: true,
     preparationTime: "20 min",
@@ -34,7 +34,7 @@ export const dishes = [
     price: "28€",
     category: "Poissons",
     country: "🇧🇷 Brésil",
-    image: "/images/plats/moqueca.jpg",
+    image: "/images/plats/plat3.webp",
     isSpicy: true,
     isPopular: false,
     preparationTime: "35 min",
@@ -47,7 +47,7 @@ export const dishes = [
     price: "16€",
     category: "Entrées",
     country: "🇦🇷 Argentine",
-    image: "/images/plats/empanadas.jpg",
+    image: "/images/plats/plat4.jpg",
     isSpicy: false,
     isPopular: true,
     preparationTime: "25 min",
@@ -60,7 +60,7 @@ export const dishes = [
     price: "35€",
     category: "Viandes",
     country: "🇧🇷 Brésil",
-    image: "/images/plats/picanha.jpg",
+    image: "/images/plats/plat5.webp",
     isSpicy: false,
     isPopular: true,
     preparationTime: "40 min",
@@ -73,7 +73,7 @@ export const dishes = [
     price: "24€",
     category: "Poissons",
     country: "🇵🇪 Pérou",
-    image: "/images/plats/ceviche.jpg",
+    image: "/images/plats/plat6.jpeg",
     isSpicy: true,
     isPopular: false,
     preparationTime: "15 min",
@@ -86,7 +86,7 @@ export const dishes = [
     price: "20€",
     category: "Végétarien",
     country: "🇲🇽 Mexique",
-    image: "/images/plats/quesadillas.jpg",
+    image: "/images/plats/plat1.webp", // Réutilise la première image si plus de 6 plats
     isSpicy: false,
     isPopular: false,
     preparationTime: "18 min",
@@ -99,7 +99,7 @@ export const dishes = [
     price: "26€",
     category: "Plats Traditionnels",
     country: "🇧🇷 Brésil",
-    image: "/images/plats/feijoada.jpg",
+    image: "/images/plats/plat2.jpg", // Réutilise la deuxième image si plus de 6 plats
     isSpicy: false,
     isPopular: true,
     preparationTime: "60 min",
@@ -122,4 +122,14 @@ export const getPopularDishes = () => {
 export const getCategories = () => {
   const categories = ['all', ...new Set(dishes.map(dish => dish.category))];
   return categories;
+};
+
+// Fonction pour récupérer un plat par son ID
+export const getDishById = (id) => {
+  return dishes.find(dish => dish.id === id);
+};
+
+// Fonction pour récupérer les plats épicés
+export const getSpicyDishes = () => {
+  return dishes.filter(dish => dish.isSpicy);
 };

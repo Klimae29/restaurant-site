@@ -1,9 +1,8 @@
 ---
-// src/components/DishCarousel.astro - Version avec espacement corrigé
+// src/components/DishCarousel.astro - Version simplifiée utilisant directement dishes.js
 import { dishes } from '../data/dishes.js';
 ---
 
-<!-- Ajout d'une classe spécifique et suppression des paddings verticaux par défaut -->
 <section class="dish-carousel-section bg-white overflow-hidden" style="padding-top: 0; margin-top: 0;">
   <!-- Header simple avec contrôle précis de l'espacement -->
   <div class="header-section text-center" style="padding-top: 2rem; margin-bottom: 1rem;">
@@ -17,7 +16,7 @@ import { dishes } from '../data/dishes.js';
   <div class="relative">
     <div class="carousel-track flex gap-0 animate-scroll">
       <!-- Premier set d'images -->
-      {dishes.map((dish, index) => (
+      {dishes.map((dish) => (
         <div
           class="dish-slide flex-none w-80 h-64 relative cursor-pointer group overflow-hidden"
           data-dish-id={dish.id}
@@ -25,36 +24,46 @@ import { dishes } from '../data/dishes.js';
           data-dish-description={dish.description}
           data-dish-price={dish.price}
           data-dish-country={dish.country}
+          data-dish-image={dish.image}
+          data-dish-category={dish.category}
+          data-dish-spicy={dish.isSpicy}
+          data-dish-popular={dish.isPopular}
+          data-dish-prep-time={dish.preparationTime}
+          data-dish-ingredients={JSON.stringify(dish.ingredients)}
         >
-          <!-- Image placeholder avec dégradé et emoji -->
-          <div class="absolute inset-0 bg-gradient-to-br from-orange-400 via-red-500 to-yellow-500 flex items-center justify-center">
-            <span class="text-8xl opacity-60">
-              {dish.category === 'Viandes' ? '🥩' :
-               dish.category === 'Poissons' ? '🐟' :
-               dish.category === 'Street Food' ? '🌮' :
-               dish.category === 'Végétarien' ? '🥬' : '🍽️'}
-            </span>
+          <!-- Image de fond réelle -->
+          <div class="absolute inset-0">
+            <img
+              src={dish.image}
+              alt={`${dish.name} - ${dish.country}`}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
           </div>
 
           <!-- Overlay sombre au hover -->
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300"></div>
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300"></div>
 
-          <!-- Titre qui apparaît au hover -->
-          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-110 group-hover:scale-100">
+
+          <!-- Titre et pays qui apparaissent au hover -->
+          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
             <div class="text-center text-white px-4">
               <h3 class="font-['Playfair_Display'] text-xl font-bold mb-2 drop-shadow-lg">
                 {dish.name}
               </h3>
-              <p class="text-sm opacity-90 drop-shadow-md">
+              <p class="text-sm opacity-90 drop-shadow-md font-medium">
                 {dish.country}
               </p>
+
+              <div class="w-12 h-0.5 bg-yellow-400 mx-auto mt-2 transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-150"></div>
             </div>
           </div>
+
         </div>
       ))}
 
       <!-- Duplication pour défilement infini -->
-      {dishes.map((dish, index) => (
+      {dishes.map((dish) => (
         <div
           class="dish-slide flex-none w-80 h-64 relative cursor-pointer group overflow-hidden"
           data-dish-id={dish.id + '-duplicate'}
@@ -62,28 +71,40 @@ import { dishes } from '../data/dishes.js';
           data-dish-description={dish.description}
           data-dish-price={dish.price}
           data-dish-country={dish.country}
+          data-dish-image={dish.image}
+          data-dish-category={dish.category}
+          data-dish-spicy={dish.isSpicy}
+          data-dish-popular={dish.isPopular}
+          data-dish-prep-time={dish.preparationTime}
+          data-dish-ingredients={JSON.stringify(dish.ingredients)}
         >
-          <div class="absolute inset-0 bg-gradient-to-br from-orange-400 via-red-500 to-yellow-500 flex items-center justify-center">
-            <span class="text-8xl opacity-60">
-              {dish.category === 'Viandes' ? '🥩' :
-               dish.category === 'Poissons' ? '🐟' :
-               dish.category === 'Street Food' ? '🌮' :
-               dish.category === 'Végétarien' ? '🥬' : '🍽️'}
-            </span>
+          <!-- Image de fond réelle -->
+          <div class="absolute inset-0">
+            <img
+              src={dish.image}
+              alt={`${dish.name} - ${dish.country}`}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
           </div>
 
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300"></div>
+          <!-- Overlay sombre au hover -->
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300"></div>
 
-          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-110 group-hover:scale-100">
+          <!-- Titre et pays qui apparaissent au hover -->
+          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
             <div class="text-center text-white px-4">
               <h3 class="font-['Playfair_Display'] text-xl font-bold mb-2 drop-shadow-lg">
                 {dish.name}
               </h3>
-              <p class="text-sm opacity-90 drop-shadow-md">
+              <p class="text-sm opacity-90 drop-shadow-md font-medium">
                 {dish.country}
               </p>
+              
+              <div class="w-12 h-0.5 bg-yellow-400 mx-auto mt-2 transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-150"></div>
             </div>
           </div>
+
         </div>
       ))}
     </div>
@@ -105,8 +126,20 @@ import { dishes } from '../data/dishes.js';
       </button>
 
       <!-- Image du plat en grand -->
-      <div id="modalImage" class="w-full h-80 bg-gradient-to-br from-orange-400 via-red-500 to-yellow-500 rounded-t-3xl flex items-center justify-center">
-        <span id="modalEmoji" class="text-9xl opacity-60">🍽️</span>
+      <div id="modalImage" class="w-full h-80 rounded-t-3xl overflow-hidden relative">
+        <img
+          id="modalImageSrc"
+          src="/images/plats/plat1.webp"
+          alt="Plat"
+          class="w-full h-full object-cover"
+        />
+        <!-- Overlay léger pour la lisibilité -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+
+        <!-- Badges sur l'image du modal -->
+        <div id="modalBadges" class="absolute top-4 left-4 flex flex-col gap-2">
+          <!-- Les badges seront ajoutés dynamiquement -->
+        </div>
       </div>
 
       <!-- Contenu du modal -->
@@ -116,8 +149,16 @@ import { dishes } from '../data/dishes.js';
             <h3 id="modalTitle" class="font-['Playfair_Display'] text-3xl font-bold text-gray-800 mb-2">
               Nom du plat
             </h3>
-            <p id="modalCountry" class="text-lg text-red-700 font-medium">
-              🇦🇷 Pays
+            <div class="flex items-center gap-4 mb-2">
+              <p id="modalCountry" class="text-lg text-red-700 font-medium">
+                🇦🇷 Pays
+              </p>
+              <p id="modalPrepTime" class="text-sm text-gray-500">
+                ⏱️ 30 min
+              </p>
+            </div>
+            <p id="modalCategory" class="text-sm text-gray-600 font-medium">
+              Catégorie
             </p>
           </div>
           <span id="modalPrice" class="text-3xl font-bold text-red-700">
@@ -125,9 +166,17 @@ import { dishes } from '../data/dishes.js';
           </span>
         </div>
 
-        <p id="modalDescription" class="text-gray-600 leading-relaxed mb-6">
+        <p id="modalDescription" class="text-gray-600 leading-relaxed mb-4">
           Description du plat...
         </p>
+
+        <!-- Ingrédients -->
+        <div class="mb-6">
+          <h4 class="font-bold text-gray-800 mb-2">Ingrédients :</h4>
+          <div id="modalIngredients" class="flex flex-wrap gap-2">
+            <!-- Les ingrédients seront ajoutés dynamiquement -->
+          </div>
+        </div>
 
         <div class="flex gap-4">
           <button class="flex-1 bg-gradient-to-r from-red-700 to-orange-600 hover:from-red-800 hover:to-orange-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 hover:scale-105">
@@ -169,32 +218,56 @@ import { dishes } from '../data/dishes.js';
         const dishDescription = slide.dataset.dishDescription;
         const dishPrice = slide.dataset.dishPrice;
         const dishCountry = slide.dataset.dishCountry;
+        const dishImage = slide.dataset.dishImage;
+        const dishCategory = slide.dataset.dishCategory;
+        const dishSpicy = slide.dataset.dishSpicy === 'true';
+        const dishPopular = slide.dataset.dishPopular === 'true';
+        const dishPrepTime = slide.dataset.dishPrepTime;
+        const dishIngredients = JSON.parse(slide.dataset.dishIngredients || '[]');
 
-        // Récupérer l'emoji depuis le HTML
-        const emojiElement = slide.querySelector('span');
-        const emoji = emojiElement ? emojiElement.textContent : '🍽️';
-
-        // Remplir le modal
+        // Remplir le modal avec toutes les données
         document.getElementById('modalTitle').textContent = dishName;
         document.getElementById('modalDescription').textContent = dishDescription;
         document.getElementById('modalPrice').textContent = dishPrice;
         document.getElementById('modalPriceBtn').textContent = dishPrice;
         document.getElementById('modalCountry').textContent = dishCountry;
-        document.getElementById('modalEmoji').textContent = emoji;
+        document.getElementById('modalCategory').textContent = dishCategory;
+        document.getElementById('modalPrepTime').textContent = `⏱️ ${dishPrepTime}`;
 
-        // Changer la couleur de fond selon la catégorie
-        const modalImage = document.getElementById('modalImage');
-        if (emoji.includes('🥩')) {
-          modalImage.className = 'w-full h-80 bg-gradient-to-br from-red-600 via-red-700 to-red-800 rounded-t-3xl flex items-center justify-center';
-        } else if (emoji.includes('🐟')) {
-          modalImage.className = 'w-full h-80 bg-gradient-to-br from-blue-500 via-cyan-600 to-teal-600 rounded-t-3xl flex items-center justify-center';
-        } else if (emoji.includes('🌮')) {
-          modalImage.className = 'w-full h-80 bg-gradient-to-br from-yellow-500 via-orange-500 to-red-600 rounded-t-3xl flex items-center justify-center';
-        } else if (emoji.includes('🥬')) {
-          modalImage.className = 'w-full h-80 bg-gradient-to-br from-green-500 via-emerald-600 to-teal-700 rounded-t-3xl flex items-center justify-center';
-        } else {
-          modalImage.className = 'w-full h-80 bg-gradient-to-br from-orange-400 via-red-500 to-yellow-500 rounded-t-3xl flex items-center justify-center';
+        // Changer l'image du modal
+        const modalImageSrc = document.getElementById('modalImageSrc');
+        if (modalImageSrc) {
+          modalImageSrc.src = dishImage;
+          modalImageSrc.alt = `${dishName} - ${dishCountry}`;
         }
+
+        // Ajouter les badges dans le modal
+        const modalBadges = document.getElementById('modalBadges');
+        modalBadges.innerHTML = '';
+
+        if (dishPopular) {
+          const popularBadge = document.createElement('div');
+          popularBadge.className = 'bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full';
+          popularBadge.textContent = 'POPULAIRE';
+          modalBadges.appendChild(popularBadge);
+        }
+
+        if (dishSpicy) {
+          const spicyBadge = document.createElement('div');
+          spicyBadge.className = 'bg-orange-600 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1';
+          spicyBadge.innerHTML = '🌶️ ÉPICÉ';
+          modalBadges.appendChild(spicyBadge);
+        }
+
+        // Ajouter les ingrédients
+        const modalIngredients = document.getElementById('modalIngredients');
+        modalIngredients.innerHTML = '';
+        dishIngredients.forEach(ingredient => {
+          const ingredientTag = document.createElement('span');
+          ingredientTag.className = 'bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full';
+          ingredientTag.textContent = ingredient;
+          modalIngredients.appendChild(ingredientTag);
+        });
 
         // Afficher le modal avec animation
         modal.classList.remove('opacity-0', 'pointer-events-none');
@@ -293,7 +366,7 @@ import { dishes } from '../data/dishes.js';
     }
   }
 
-  /* Effet zoom léger au hover */
+  /* Effet zoom sur l'image au hover */
   .dish-slide {
     transition: all 0.3s ease;
   }
@@ -301,6 +374,16 @@ import { dishes } from '../data/dishes.js';
   .dish-slide:hover {
     transform: scale(1.03);
     z-index: 10;
+  }
+
+  /* Animation d'apparition fluide du contenu */
+  .dish-slide .text-center {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Effet sur l'image au hover */
+  .dish-slide img {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Modal responsive */
@@ -315,19 +398,34 @@ import { dishes } from '../data/dishes.js';
     }
   }
 
-  /* Animation d'apparition du titre */
-  .dish-slide .text-center {
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-  }
-
-  .dish-slide:hover .text-center {
-    transform: translateY(0);
-  }
-
   /* Smooth scroll pour le modal */
   .modal-content {
     max-height: 90vh;
     overflow-y: auto;
+  }
+
+  /* Amélioration de l'accessibilité */
+  .dish-slide:focus {
+    outline: 3px solid #fbbf24;
+    outline-offset: 2px;
+  }
+
+  /* Animation du badge prix */
+  .dish-slide:hover .bg-yellow-400 {
+    animation: bounceIn 0.6s ease-out;
+  }
+
+  @keyframes bounceIn {
+    0% {
+      transform: translateX(20px) scale(0.8);
+      opacity: 0;
+    }
+    50% {
+      transform: translateX(-5px) scale(1.1);
+    }
+    100% {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
   }
 </style>

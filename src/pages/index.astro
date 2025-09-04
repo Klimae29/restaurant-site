@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import HeroSection from '../components/HeroSection.astro';
 import DishCarousel from '../components/DishCarousel.astro';
+import MenuCards from '../components/MenuCards.astro';
 
 ---
 
@@ -10,49 +11,12 @@ import DishCarousel from '../components/DishCarousel.astro';
   <Header />
   <HeroSection />
   <DishCarousel />
+  <MenuCards />
 
 
   <main>
 
-    <!-- Section Spécialités -->
-    <section class="py-20 bg-neutral-warm relative overflow-hidden">
-      <!-- Motif géométrique en arrière-plan -->
-      <div class="absolute inset-0 opacity-5">
-        <div class="w-full h-full" style="background-image: repeating-linear-gradient(45deg, var(--color-primary), var(--color-primary) 10px, transparent 10px, transparent 50px);"></div>
-      </div>
-
-      <div class="container-custom text-center relative z-10">
-        <h2 class="primary-font text-5xl text-primary mb-4">Nuestras Especialidades</h2>
-        <div class="w-24 h-1 bg-accent mx-auto mb-8"></div>
-
-        <div class="grid md:grid-cols-3 gap-8 mt-12">
-          <div class="text-center group">
-            <div class="text-6xl mb-4 group-hover:scale-110 transition-transform">🥩</div>
-            <h3 class="primary-font text-2xl text-secondary mb-3">Asado Argentino</h3>
-            <p class="secondary-font text-lg text-neutral-dark">
-              Viande grillée à la perfection selon la tradition de la pampa
-            </p>
-          </div>
-
-          <div class="text-center group">
-            <div class="text-6xl mb-4 group-hover:scale-110 transition-transform">🌮</div>
-            <h3 class="primary-font text-2xl text-secondary mb-3">Tacos Auténticos</h3>
-            <p class="secondary-font text-lg text-neutral-dark">
-              Tortillas fraîches garnies selon les recettes traditionnelles mexicaines
-            </p>
-          </div>
-
-          <div class="text-center group">
-            <div class="text-6xl mb-4 group-hover:scale-110 transition-transform">🍹</div>
-            <h3 class="primary-font text-2xl text-secondary mb-3">Caipirinhas</h3>
-            <p class="secondary-font text-lg text-neutral-dark">
-              Cocktails brésiliens préparés avec de la cachaça premium
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    
     <!-- Section Ambiance -->
     <section class="py-20 bg-gradient-to-r from-secondary to-primary text-white">
       <div class="container-custom">
@@ -175,6 +139,6 @@ import DishCarousel from '../components/DishCarousel.astro';
     </div>
   </footer>
 
-  
+
 
 </Layout>
