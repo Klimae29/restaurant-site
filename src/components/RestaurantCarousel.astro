@@ -1,0 +1,416 @@
+---
+// src/components/RestaurantCarousel.astro - Carrousel de photos du restaurant
+import { readdir } from 'fs/promises';
+import { join } from 'path';
+
+// Fonction pour récupérer toutes les images du dossier restaurant
+let restaurantImages = [];
+
+try {
+  const publicPath = join(process.cwd(), 'public', 'images', 'restaurant');
+  const files = await readdir(publicPath);
+
+  // Filtrer les fichiers image et créer les objets
+  restaurantImages = files
+    .filter(file => /\.(jpg|jpeg|png|webp|gif)$/i.test(file))
+    .map((file, index) => ({
+      id: index + 1,
+      src: `/images/restaurant/${file}`,
+      alt: `Restaurant Corazón Latino - Photo ${index + 1}`,
+      name: file.replace(/\.(jpg|jpeg|png|webp|gif)$/i, '')
+    }));
+} catch (error) {
+  console.warn('Erreur lors de la lecture du dossier restaurant:', error);
+  // Images de fallback si le dossier n'existe pas
+  restaurantImages = [
+    { id: 1, src: '/images/restaurant/restaurant1.webp', alt: 'Restaurant Corazón Latino - Salle principale', name: 'restaurant1' },
+    { id: 2, src: '/images/restaurant/restaurant2.webp', alt: 'Restaurant Corazón Latino - Bar', name: 'restaurant2' },
+    { id: 3, src: '/images/restaurant/restaurant3.webp', alt: 'Restaurant Corazón Latino - Terrasse', name: 'restaurant3' }
+  ];
+}
+---
+
+<section class="restaurant-carousel-section bg-gradient-to-b from-white to-neutral-50 overflow-hidden" style="padding-top: 0; margin-top: 0;">
+  <!-- Header de la section -->
+  <div class="header-section text-center" style="padding-top: 3rem; margin-bottom: 2rem;">
+    <h2 class="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-red-700 mb-4">
+      Nuestro Ambiente
+    </h2>
+    <p class="text-gray-600 text-lg max-w-2xl mx-auto mb-6">
+      Découvrez l'atmosphère chaleureuse et authentique de notre restaurant
+    </p>
+    <div class="w-16 h-1 bg-yellow-400 mx-auto"></div>
+  </div>
+
+  <!-- Carousel défilant -->
+  <div class="relative">
+    <div class="restaurant-carousel-track flex gap-4 animate-scroll-restaurant">
+      <!-- Premier set d'images -->
+      {restaurantImages.map((image) => (
+        <div
+          class="restaurant-slide flex-none w-96 h-72 relative cursor-pointer group overflow-hidden rounded-xl shadow-lg"
+          data-image-id={image.id}
+          data-image-src={image.src}
+          data-image-alt={image.alt}
+          data-image-name={image.name}
+        >
+          <!-- Image de fond -->
+          <div class="absolute inset-0">
+            <img
+              src={image.src}
+              alt={image.alt}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Overlay subtil au hover -->
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500"></div>
+        </div>
+      ))}
+
+      <!-- Duplication pour défilement infini -->
+      {restaurantImages.map((image) => (
+        <div
+          class="restaurant-slide flex-none w-96 h-72 relative cursor-pointer group overflow-hidden rounded-xl shadow-lg"
+          data-image-id={image.id + '-duplicate'}
+          data-image-src={image.src}
+          data-image-alt={image.alt}
+          data-image-name={image.name}
+        >
+          <!-- Image de fond -->
+          <div class="absolute inset-0">
+            <img
+              src={image.src}
+              alt={image.alt}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Overlay subtil au hover -->
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Modal Zoom pour les photos -->
+<div id="restaurantModal" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500">
+  <div class="modal-content relative max-w-5xl max-h-[90vh] mx-4 transform scale-75 transition-all duration-500">
+    <!-- Bouton fermer -->
+    <button
+      id="closeRestaurantModal"
+      class="absolute top-4 right-4 z-10 w-12 h-12 bg-red-700 hover:bg-red-800 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-xl"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <!-- Navigation précédent/suivant -->
+    <button
+      id="prevImage"
+      class="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white/20 hover:bg-white/30 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 backdrop-blur-sm"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+    </button>
+
+    <button
+      id="nextImage"
+      class="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white/20 hover:bg-white/30 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 backdrop-blur-sm"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </button>
+
+    <!-- Image principale du modal -->
+    <div class="relative">
+      <img
+        id="modalRestaurantImage"
+        src="/images/restaurant/restaurant1.webp"
+        alt="Restaurant"
+        class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+      />
+
+      <!-- Indicateur de position -->
+      <div id="imageCounter" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 text-white px-4 py-2 rounded-full text-sm backdrop-blur-sm">
+        1 / 3
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const restaurantSlides = document.querySelectorAll('.restaurant-slide');
+    const modal = document.getElementById('restaurantModal');
+    const closeModal = document.getElementById('closeRestaurantModal');
+    const modalImage = document.getElementById('modalRestaurantImage');
+    const imageCounter = document.getElementById('imageCounter');
+    const prevBtn = document.getElementById('prevImage');
+    const nextBtn = document.getElementById('nextImage');
+    const carouselTrack = document.querySelector('.restaurant-carousel-track');
+
+    // Collect all unique images (without duplicates)
+    const allImages = Array.from(restaurantSlides)
+      .filter(slide => !slide.dataset.imageId.includes('duplicate'))
+      .map(slide => ({
+        src: slide.dataset.imageSrc,
+        alt: slide.dataset.imageAlt,
+        name: slide.dataset.imageName
+      }));
+
+    let currentImageIndex = 0;
+
+    // Animation pause/play au survol
+    let isPaused = false;
+
+    carouselTrack?.addEventListener('mouseenter', () => {
+      isPaused = true;
+      carouselTrack.style.animationPlayState = 'paused';
+    });
+
+    carouselTrack?.addEventListener('mouseleave', () => {
+      isPaused = false;
+      carouselTrack.style.animationPlayState = 'running';
+    });
+
+    // Fonction pour mettre à jour l'image du modal
+    function updateModalImage(index) {
+      if (allImages[index]) {
+        modalImage.src = allImages[index].src;
+        modalImage.alt = allImages[index].alt;
+        imageCounter.textContent = `${index + 1} / ${allImages.length}`;
+        currentImageIndex = index;
+      }
+    }
+
+    // Gestion du clic sur les images du restaurant
+    restaurantSlides.forEach((slide, slideIndex) => {
+      slide.addEventListener('click', () => {
+        const imageName = slide.dataset.imageName;
+        const imageIndex = allImages.findIndex(img => img.name === imageName);
+
+        if (imageIndex !== -1) {
+          updateModalImage(imageIndex);
+
+          // Afficher le modal avec animation
+          modal.classList.remove('opacity-0', 'pointer-events-none');
+          modal.classList.add('opacity-100');
+
+          setTimeout(() => {
+            modal.querySelector('.modal-content').classList.remove('scale-75');
+            modal.querySelector('.modal-content').classList.add('scale-100');
+          }, 50);
+
+          // Bloquer le scroll
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+
+    // Navigation précédent/suivant
+    prevBtn?.addEventListener('click', () => {
+      currentImageIndex = currentImageIndex > 0 ? currentImageIndex - 1 : allImages.length - 1;
+      updateModalImage(currentImageIndex);
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      currentImageIndex = currentImageIndex < allImages.length - 1 ? currentImageIndex + 1 : 0;
+      updateModalImage(currentImageIndex);
+    });
+
+    // Fermer le modal
+    function closeModalFunction() {
+      modal.querySelector('.modal-content').classList.remove('scale-100');
+      modal.querySelector('.modal-content').classList.add('scale-75');
+
+      setTimeout(() => {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        modal.classList.remove('opacity-100');
+        document.body.style.overflow = 'auto';
+      }, 300);
+    }
+
+    closeModal?.addEventListener('click', closeModalFunction);
+
+    // Fermer en cliquant à côté
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModalFunction();
+      }
+    });
+
+    // Navigation avec les flèches du clavier
+    document.addEventListener('keydown', (e) => {
+      if (!modal.classList.contains('opacity-0')) {
+        switch(e.key) {
+          case 'Escape':
+            closeModalFunction();
+            break;
+          case 'ArrowLeft':
+            prevBtn.click();
+            break;
+          case 'ArrowRight':
+            nextBtn.click();
+            break;
+        }
+      }
+    });
+
+    // Reset de l'animation quand elle se termine
+    carouselTrack?.addEventListener('animationiteration', () => {
+      if (!isPaused) {
+        carouselTrack.style.transform = 'translateX(0)';
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Forcer l'espacement de la section */
+  .restaurant-carousel-section {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Animation de défilement continu pour le restaurant */
+  .restaurant-carousel-track {
+    animation: scroll-restaurant 60s linear infinite;
+    width: calc(400px * 16); /* Largeur adaptée pour les images restaurant */
+  }
+
+  @keyframes scroll-restaurant {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-400px * var(--image-count, 6))); /* Ajusté dynamiquement */
+    }
+  }
+
+  /* Responsive : adaptation mobile */
+  @media (max-width: 768px) {
+    .restaurant-carousel-track {
+      animation-duration: 45s;
+    }
+
+    .restaurant-slide {
+      width: 280px !important;
+      height: 200px !important;
+    }
+
+    @keyframes scroll-restaurant {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+      100% {
+        transform: translate3d(calc(-280px * var(--image-count, 6)), 0, 0);
+      }
+    }
+  }
+
+  /* Effet hover raffiné */
+  .restaurant-slide {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .restaurant-slide:hover {
+    transform: scale(1.05) translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    z-index: 10;
+  }
+
+  /* Animation de l'icône zoom */
+  .restaurant-slide svg {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .restaurant-slide:hover svg {
+    transform: scale(1.1);
+  }
+
+  /* Modal responsive */
+  @media (max-width: 640px) {
+    .modal-content {
+      margin: 1rem;
+      max-width: calc(100vw - 2rem);
+    }
+
+    #modalRestaurantImage {
+      max-height: 70vh;
+    }
+
+    #prevImage, #nextImage {
+      width: 40px;
+      height: 40px;
+    }
+
+    #prevImage {
+      left: 2px;
+    }
+
+    #nextImage {
+      right: 2px;
+    }
+  }
+
+  /* Amélioration de l'accessibilité */
+  .restaurant-slide:focus {
+    outline: 3px solid #fbbf24;
+    outline-offset: 4px;
+  }
+
+  button:focus {
+    outline: 3px solid #fbbf24;
+    outline-offset: 2px;
+  }
+
+  /* Animation du badge au hover */
+  .restaurant-slide:hover .bg-yellow-400 {
+    animation: slideInLeft 0.5s ease-out;
+  }
+
+  @keyframes slideInLeft {
+    0% {
+      transform: translateX(-20px) translateY(8px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0) translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Effet de transition fluide pour l'image du modal */
+  #modalRestaurantImage {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  /* Style pour les boutons de navigation */
+  #prevImage:hover, #nextImage:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  /* Animation d'apparition du compteur */
+  #imageCounter {
+    animation: fadeInUp 0.5s ease-out 0.3s both;
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+</style>

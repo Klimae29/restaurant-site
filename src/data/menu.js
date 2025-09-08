@@ -8,7 +8,6 @@ export const menus = [
     description: "Notre sélection des meilleurs plats",
     dishes: [
       "Empanadas de bœuf (entrée)",
-      "Ceviche de dorade fraîche",
       "Asado de bœuf chimichurri",
       "Tres leches maison",
       "Café colombien & petit four"

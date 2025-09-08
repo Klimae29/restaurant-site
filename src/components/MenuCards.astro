@@ -1,37 +1,31 @@
 ---
-// src/components/MenuCards.astro - Composant responsive intelligent
+// src/components/MenuCards.astro - Composant cartes de menu responsive
 import { menus, getMenusCount } from '../data/menu.js';
 
-// Logique pour déterminer le layout responsive
 const menuCount = getMenusCount();
 
-// Fonction pour déterminer les classes CSS selon le nombre de menus
-const getGridClasses = (count) => {
-  if (count <= 4) {
-    // 1-4 menus : une seule ligne
-    return {
-      container: "grid gap-8 max-w-7xl mx-auto",
-      responsive: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-    };
-  } else if (count <= 6) {
-    // 5-6 menus : deux lignes
-    return {
-      container: "grid gap-8 max-w-6xl mx-auto",
-      responsive: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-    };
-  } else {
-    // 7+ menus : trois lignes ou plus
-    return {
-      container: "grid gap-6 max-w-7xl mx-auto",
-      responsive: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-    };
+// Fonction pour déterminer les classes selon le nombre de menus
+const getLayoutClasses = (count: number) => {
+  switch (count) {
+    case 1:
+      return "flex justify-center max-w-md mx-auto";
+    case 2:
+      return "grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto";
+    case 3:
+      return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto";
+    case 4:
+      return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto";
+    default:
+      return count <= 6
+        ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+        : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto";
   }
 };
 
-const gridLayout = getGridClasses(menuCount);
+const layoutClasses = getLayoutClasses(menuCount);
 ---
 
-<section class="py-6 bg-neutral-warm relative overflow-hidden">
+<section class="py-16 bg-neutral-warm relative overflow-hidden">
   <!-- Motif de fond décoratif -->
   <div class="absolute inset-0 opacity-5">
     <div class="absolute top-20 left-10 w-32 h-32 border-2 border-amber-600 rounded-full transform rotate-12"></div>
@@ -41,24 +35,22 @@ const gridLayout = getGridClasses(menuCount);
 
   <div class="container mx-auto px-6 relative z-10">
     <!-- Header de section -->
-    <div class="header-section text-center" style="padding-top: 2rem; margin-bottom: 1rem;">
-    <h2 class="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-red-700 mb-4">
-      Nuestras Especialidades
-    </h2>
-    <div class="w-16 h-1 bg-yellow-400 mx-auto"></div>
-  </div>
+    <div class="text-center mb-12">
+      <h2 class="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-red-700 mb-4">
+        Nuestras Especialidades
+      </h2>
+      <div class="w-16 h-1 bg-yellow-400 mx-auto"></div>
+    </div>
 
     <!-- Grid responsive des cartes de menu -->
-    <div class={`${gridLayout.container} ${gridLayout.responsive}`}>
+    <div class={layoutClasses}>
       {menus.map((menu, index) => (
-        <div class="py-4 menu-card group relative cursor-pointer transform transition-all duration-500 hover:scale-105 hover:rotate-1" style={`animation-delay: ${index * 0.1}s`}>
-
-
-          <!-- Carte principale avec effet papier vieilli -->
+        <div
+          class="menu-card group relative cursor-pointer transform transition-all duration-500 hover:scale-105"
+          style={`animation-delay: ${index * 0.1}s`}
+        >
+          <!-- Carte principale -->
           <div class="vintage-paper bg-gradient-to-br from-amber-100 via-yellow-50 to-amber-200 rounded-xl shadow-2xl border-2 border-amber-300/50 p-6 h-full relative overflow-hidden group-hover:shadow-3xl transition-all duration-500">
-
-
-
             <!-- Contenu de la carte -->
             <div class="relative z-10">
               <!-- Header de la carte -->
@@ -76,18 +68,18 @@ const gridLayout = getGridClasses(menuCount);
                 </div>
               </div>
 
-              <!-- Liste des plats (petit texte) -->
+              <!-- Liste des plats -->
               <div class="space-y-2 mb-6 text-center">
                 {menu.dishes.map((dish) => (
                   <div>
-                    <p class="text-xs text-amber-800 leading-relaxed">
+                    <p class="text-sm text-amber-800 leading-relaxed">
                       {dish}
                     </p>
                   </div>
                 ))}
               </div>
 
-              <!-- Bouton zoom apparent -->
+              <!-- Bouton zoom -->
               <div class="text-center">
                 <button
                   class="zoom-btn w-12 h-12 bg-amber-600 hover:bg-amber-700 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 mx-auto"
@@ -107,11 +99,6 @@ const gridLayout = getGridClasses(menuCount);
                 </p>
               </div>
             </div>
-
-            <!-- Coins déchirés effect -->
-            <div class="absolute top-0 left-0 w-6 h-6 bg-amber-100 transform -rotate-45 -translate-x-3 -translate-y-3"></div>
-            <div class="absolute top-0 right-0 w-4 h-4 bg-amber-100 transform rotate-45 translate-x-2 -translate-y-2"></div>
-            <div class="absolute bottom-0 left-0 w-5 h-5 bg-amber-100 transform rotate-45 -translate-x-2 translate-y-2"></div>
           </div>
         </div>
       ))}
@@ -126,7 +113,7 @@ const gridLayout = getGridClasses(menuCount);
   </div>
 </section>
 
-<!-- Modal Zoom Plein Écran -->
+<!-- Modal Zoom -->
 <div id="menuModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500">
   <div class="modal-content bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 rounded-2xl max-w-4xl mx-4 transform scale-75 transition-all duration-500 shadow-2xl border-4 border-amber-300/50 max-h-[90vh] overflow-y-auto">
     <div class="relative">
@@ -145,7 +132,7 @@ const gridLayout = getGridClasses(menuCount);
         <!-- Header du modal -->
         <div class="text-center mb-8 border-b-4 border-amber-400/30 pb-6">
           <div id="modalPopularBadge" class="inline-block bg-red-600 text-white text-sm font-bold px-4 py-2 rounded-full mb-4 hidden">
-            🔥 MENU POPULAIRE
+            MENU POPULAIRE
           </div>
           <h2 id="modalMenuName" class="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-amber-900 mb-4">
             Menu Dégustation
@@ -176,7 +163,7 @@ const gridLayout = getGridClasses(menuCount);
             Réserver ce menu - <span id="modalPriceBtn">65€</span>
           </button>
           <button class="px-8 py-4 border-3 border-amber-600 text-amber-800 hover:bg-amber-600 hover:text-white rounded-xl transition-all duration-300 hover:scale-105 font-bold">
-            Partager ❤️
+            Partager
           </button>
         </div>
       </div>
@@ -199,7 +186,7 @@ const gridLayout = getGridClasses(menuCount);
         const menuDishes = JSON.parse(btn.dataset.menuDishes || '[]');
         const menuPopular = btn.dataset.menuPopular === 'true';
 
-        // Remplir le modal avec les données
+        // Remplir le modal
         document.getElementById('modalMenuName').textContent = menuName;
         document.getElementById('modalMenuPrice').textContent = menuPrice;
         document.getElementById('modalPriceBtn').textContent = menuPrice;
@@ -213,14 +200,13 @@ const gridLayout = getGridClasses(menuCount);
           popularBadge.classList.add('hidden');
         }
 
-        // Ajouter les plats avec un style élégant
+        // Ajouter les plats
         const dishesList = document.getElementById('modalDishesList');
         dishesList.innerHTML = '';
 
         menuDishes.forEach((dish, index) => {
           const dishElement = document.createElement('div');
           dishElement.className = 'flex items-center gap-4 p-4 bg-white/50 rounded-lg border border-amber-300/30 shadow-sm';
-
           dishElement.innerHTML = `
             <div class="w-8 h-8 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
               ${index + 1}
@@ -236,11 +222,10 @@ const gridLayout = getGridClasses(menuCount);
               </svg>
             </div>
           `;
-
           dishesList.appendChild(dishElement);
         });
 
-        // Afficher le modal avec animation
+        // Afficher le modal
         modal.classList.remove('opacity-0', 'pointer-events-none');
         modal.classList.add('opacity-100');
 
@@ -249,7 +234,6 @@ const gridLayout = getGridClasses(menuCount);
           modal.querySelector('.modal-content').classList.add('scale-100');
         }, 50);
 
-        // Bloquer le scroll
         document.body.style.overflow = 'hidden';
       });
     });
@@ -268,14 +252,12 @@ const gridLayout = getGridClasses(menuCount);
 
     closeModal?.addEventListener('click', closeModalFunction);
 
-    // Fermer en cliquant à côté
     modal?.addEventListener('click', (e) => {
       if (e.target === modal) {
         closeModalFunction();
       }
     });
 
-    // Fermer avec Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !modal.classList.contains('opacity-0')) {
         closeModalFunction();
@@ -302,15 +284,15 @@ const gridLayout = getGridClasses(menuCount);
     border-radius: inherit;
   }
 
-  /* Animation de survol des cartes */
+  /* Animations des cartes */
+  .menu-card {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
   .menu-card:hover .vintage-paper {
     transform: translateY(-5px);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  }
-
-  /* Effet de rotation au hover */
-  .menu-card:hover {
-    transform: scale(1.05) rotate(1deg);
   }
 
   /* Animation du bouton zoom */
@@ -323,61 +305,16 @@ const gridLayout = getGridClasses(menuCount);
     box-shadow: 0 10px 25px rgba(180, 83, 9, 0.4);
   }
 
-  /* Layout responsive intelligent */
-
-  /* Pour 1-2 menus : centré */
-  .grid-cols-1:has(.menu-card:nth-child(1)):not(:has(.menu-card:nth-child(3))) .menu-card {
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  /* Pour 3 menus : 3 colonnes sur desktop */
-  .grid:has(.menu-card:nth-child(3)):not(:has(.menu-card:nth-child(4))) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  @media (min-width: 768px) {
-    .grid:has(.menu-card:nth-child(3)):not(:has(.menu-card:nth-child(4))) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  /* Pour 4 menus : 2x2 */
-  .grid:has(.menu-card:nth-child(4)):not(:has(.menu-card:nth-child(5))) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  @media (min-width: 768px) {
-    .grid:has(.menu-card:nth-child(4)):not(:has(.menu-card:nth-child(5))) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .grid:has(.menu-card:nth-child(4)):not(:has(.menu-card:nth-child(5))) {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-  /* Responsive général */
+  /* Responsive */
   @media (max-width: 768px) {
     .modal-content {
       margin: 1rem;
       max-width: calc(100vw - 2rem);
       max-height: calc(100vh - 2rem);
     }
-
-    .menu-card {
-      max-width: none;
-    }
   }
 
-  /* Animation d'apparition des éléments */
-  .menu-card {
-    opacity: 0;
-    animation: fadeInUp 0.6s ease-out forwards;
-  }
-
+  /* Animations */
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -389,7 +326,7 @@ const gridLayout = getGridClasses(menuCount);
     }
   }
 
-  /* Effet de texture subtile */
+  /* Effet de texture */
   .vintage-paper::after {
     content: '';
     position: absolute;
