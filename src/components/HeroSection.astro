@@ -1,5 +1,5 @@
 ---
-// src/components/HeroSection.astro - Version avec structure HTML corrigée
+// src/components/HeroSection.astro - SOLUTION DÉFINITIVE
 ---
 
 <section id="hero" class="hero-section relative min-h-screen flex items-end justify-center overflow-hidden">
@@ -31,7 +31,7 @@
   </div>
 
   <!-- Contenu principal -->
-  <div class="hero-content relative z-20 text-center pb-20 max-w-6xl mx-auto pt-24 md:pt-32">
+  <div class="hero-content relative z-20 text-center pb-20 w-full mx-auto pt-24 md:pt-32" style="max-width: none; display: flex; flex-direction: column; align-items: center;">
     <!-- Titre principal avec effet typewriter -->
     <h1 class="hero-title mb-8">
       <span class="font-['Dancing_Script'] text-6xl md:text-8xl lg:text-9xl font-bold text-yellow-400 drop-shadow-2xl block leading-none mb-4 hero-text-shadow">
@@ -42,71 +42,79 @@
       </span>
     </h1>
 
-    <!-- Indicateurs sociaux avec rating Google - VERSION CORRIGÉE -->
-    <div class="hero-social flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 text-white/60 fade-in-delay-6">
-      <!-- Rating Google Maps -->
-      <a
-        href="https://maps.app.goo.gl/zADURwXGeKjduqRR9"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="google-rating-hero group w-full md:w-auto flex justify-center"
-      >
-        <div class="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-5 py-3 border border-white/20 shadow-lg hover:bg-white/20 hover:border-yellow-400/50 transition-all duration-300">
-          <!-- Icône Google -->
-          <div class="text-2xl">⭐</div>
+    <!-- INDICATEURS SOCIAUX - VERSION ENTIÈREMENT REÉCRITE -->
+    <div>
+      <div class="fade-in-delay-centered flex items-center gap-6">
 
-          <!-- Bloc rating -->
-          <div class="flex flex-col items-start">
-            <div class="text-sm font-bold text-white group-hover:text-yellow-400 transition-colors">4.8/5</div>
-            <div class="text-xs text-white/70 group-hover:text-yellow-300">Google</div>
-          </div>
+        <!-- Rating Google Maps -->
+        <div>
+          <a
+            href="https://maps.app.goo.gl/zADURwXGeKjduqRR9"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group block"
+          >
+            <div class="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-5 py-3 border border-white/20 shadow-lg hover:bg-white/20 hover:border-yellow-400/50 transition-all duration-300">
+              <!-- Icône Google -->
+              <div class="text-2xl">⭐</div>
 
-          <!-- Séparateur vertical -->
-          <div class="w-px h-8 bg-white/20 mx-2"></div>
+              <!-- Bloc rating -->
+              <div class="flex flex-col items-start">
+                <div class="text-sm font-bold text-white group-hover:text-yellow-400 transition-colors">4.8/5</div>
+                <div class="text-xs text-white/70 group-hover:text-yellow-300">Google</div>
+              </div>
 
-          <!-- Étoiles et avis -->
-          <div class="flex items-center gap-2">
-            <div class="stars text-yellow-400 text-sm">★★★★★</div>
-            <div class="text-xs text-white/80 group-hover:text-white">(492 avis)</div>
-          </div>
-        </div>
-      </a>
+              <!-- Séparateur vertical -->
+              <div class="w-px h-8 bg-white/20 mx-2"></div>
 
-      <!-- Rating TripAdvisor -->
-      <a
-        href="https://www.tripadvisor.fr/Restaurant_Review-g608760-d7083433-Reviews-EL_Pueblo_Del_Papito-Douarnenez_Finistere_Brittany.html"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="tripadvisor-rating group w-full md:w-auto flex justify-center"
-      >
-        <div class="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-5 py-3 border border-white/20 shadow-lg hover:bg-white/20 hover:border-green-400/50 transition-all duration-300">
-          <!-- Logo TripAdvisor -->
-          <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm group-hover:bg-green-400 transition-colors">T</div>
-
-          <!-- Bloc rating -->
-          <div class="flex flex-col items-start">
-            <div class="text-sm font-bold text-white group-hover:text-green-400 transition-colors">4.6/5</div>
-            <div class="text-xs text-white/70 group-hover:text-green-300">TripAdvisor</div>
-          </div>
-
-          <!-- Séparateur vertical -->
-          <div class="w-px h-8 bg-white/20 mx-2"></div>
-
-          <!-- Cercles et avis -->
-          <div class="flex items-center gap-2">
-            <div class="circles flex gap-1">
-              <div class="w-2 h-2 bg-green-500 rounded-full group-hover:bg-green-400"></div>
-              <div class="w-2 h-2 bg-green-500 rounded-full group-hover:bg-green-400"></div>
-              <div class="w-2 h-2 bg-green-500 rounded-full group-hover:bg-green-400"></div>
-              <div class="w-2 h-2 bg-green-500 rounded-full group-hover:bg-green-400"></div>
-              <div class="w-2 h-2 bg-green-300 rounded-full group-hover:bg-green-200"></div>
+              <!-- Étoiles et avis -->
+              <div class="flex items-center gap-2">
+                <div class="stars text-yellow-400 text-sm">★★★★★</div>
+                <div class="text-xs text-white/80 group-hover:text-white">(492 avis)</div>
+              </div>
             </div>
-            <div class="text-xs text-white/80 group-hover:text-white">(245 avis)</div>
-          </div>
+          </a>
         </div>
-      </a>
+
+        <!-- Rating TripAdvisor -->
+        <div class="w-full md:w-auto flex justify-center">
+          <a
+            href="https://www.tripadvisor.fr/Restaurant_Review-g608760-d7083433-Reviews-EL_Pueblo_Del_Papito-Douarnenez_Finistere_Brittany.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group block"
+          >
+            <div class="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-5 py-3 border border-white/20 shadow-lg hover:bg-white/20 hover:border-green-400/50 transition-all duration-300">
+              <!-- Logo TripAdvisor -->
+              <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm group-hover:bg-green-400 transition-colors">T</div>
+
+              <!-- Bloc rating -->
+              <div class="flex flex-col items-start">
+                <div class="text-sm font-bold text-white group-hover:text-green-400 transition-colors">4.6/5</div>
+                <div class="text-xs text-white/70 group-hover:text-green-300">TripAdvisor</div>
+              </div>
+
+              <!-- Séparateur vertical -->
+              <div class="w-px h-8 bg-white/20 mx-2"></div>
+
+              <!-- Cercles et avis -->
+              <div class="flex items-center gap-2">
+                <div class="circles flex gap-1">
+                  <div class="w-2 h-2 bg-green-500 rounded-full group-hover:bg-green-400"></div>
+                  <div class="w-2 h-2 bg-green-500 rounded-full group-hover:bg-green-400"></div>
+                  <div class="w-2 h-2 bg-green-500 rounded-full group-hover:bg-green-400"></div>
+                  <div class="w-2 h-2 bg-green-500 rounded-full group-hover:bg-green-400"></div>
+                  <div class="w-2 h-2 bg-green-300 rounded-full group-hover:bg-green-200"></div>
+                </div>
+                <div class="text-xs text-white/80 group-hover:text-white">(245 avis)</div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+      </div>
     </div>
-  </div> <!-- Fermeture correcte du hero-content -->
+  </div>
 
   <!-- Flèche animée pour inviter au scroll -->
   <div class="scroll-indicator fixed bottom-8 right-8 z-30 animate-bounce">
@@ -125,6 +133,15 @@
     const heroBg = document.querySelector('.hero-bg');
     const heroContent = document.querySelector('.hero-content');
     const heroSection = document.querySelector('.hero-section');
+
+    // Fonction updateParallax
+    function updateParallax() {
+      if (heroBg) {
+        const scrolled = lastScrollY * 0.5;
+        heroBg.style.transform = `translateY(${scrolled}px)`;
+      }
+      ticking = false;
+    }
 
     // Gestionnaire de scroll optimisé avec throttling
     function handleScroll() {
@@ -192,89 +209,6 @@
     }
   }
 
-  /* Styles des boutons hero */
-  .btn-hero-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem;
-    background-color: #FFD23F;
-    color: #2F1B14;
-    font-weight: bold;
-    font-size: 1.125rem;
-    border-radius: 9999px;
-    transition: all 0.5s ease;
-    box-shadow: 0 10px 30px rgba(255, 210, 63, 0.3);
-    position: relative;
-    overflow: hidden;
-    text-decoration: none;
-    transform: scale(1);
-  }
-
-  .btn-hero-primary:hover {
-    box-shadow: 0 20px 40px rgba(255, 210, 63, 0.4);
-    transform: scale(1.05);
-  }
-
-  .btn-hero-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem;
-    border: 2px solid white;
-    color: white;
-    font-weight: bold;
-    font-size: 1.125rem;
-    border-radius: 9999px;
-    transition: all 0.5s ease;
-    position: relative;
-    overflow: hidden;
-    text-decoration: none;
-    transform: scale(1);
-  }
-
-  .btn-hero-secondary:hover {
-    color: #2F1B14;
-    box-shadow: 0 20px 40px rgba(255, 255, 255, 0.2);
-    transform: scale(1.05);
-  }
-
-  /* Styles pour le rating TripAdvisor */
-  .tripadvisor-rating {
-    text-decoration: none;
-  }
-
-  /* Effet glow au hover pour TripAdvisor */
-  .tripadvisor-rating:hover {
-    filter: drop-shadow(0 0 15px rgba(34, 197, 94, 0.6));
-  }
-
-  /* Animation des cercles TripAdvisor */
-  .tripadvisor-rating:hover .circles div {
-    animation: bounce 0.6s ease-in-out;
-  }
-
-  .tripadvisor-rating .circles div:nth-child(2) {
-    animation-delay: 0.1s;
-  }
-
-  .tripadvisor-rating .circles div:nth-child(3) {
-    animation-delay: 0.2s;
-  }
-
-  .tripadvisor-rating .circles div:nth-child(4) {
-    animation-delay: 0.3s;
-  }
-
-  .tripadvisor-rating .circles div:nth-child(5) {
-    animation-delay: 0.4s;
-  }
-
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
-  }
-
   /* Ombres de texte pour meilleure lisibilité sur image */
   .hero-text-shadow {
     text-shadow:
@@ -302,23 +236,12 @@
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(50px);
+      transform: translateY(30px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
-  }
-
-  /* Animation de pulsation pour les éléments sociaux */
-  .hero-social > a:hover > div {
-    animation: pulse 1s infinite;
-  }
-
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(1); }
   }
 
   /* Responsive */
@@ -328,37 +251,14 @@
       line-height: 0.9;
     }
 
-    .hero-subtitle p:first-child {
-      font-size: 1.25rem;
-    }
-
-    .btn-hero-primary, .btn-hero-secondary {
-      width: 100%;
-      max-width: 300px;
-    }
-
-    /* Rating mobile responsive */
-    .google-rating-hero .flex {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .hero-social {
-      gap: 4px;
+    .hero-content {
+      padding-bottom: 3rem;
     }
   }
 
   @media (max-width: 480px) {
     .hero-title span:first-child {
       font-size: 3rem;
-    }
-
-    .hero-content {
-      padding-bottom: 3rem;
-    }
-
-    .google-rating-hero {
-      font-size: 0.9em;
     }
   }
 

@@ -114,18 +114,28 @@ body {
   min-height: 100vh;
 }
 
-/* Animations - VERSIONS CORRIGÉES SANS PROBLÈMES DE LAYOUT */
+/* Animations */
 .fade-in-delay-1 { animation: fadeInUp 0.8s ease-out 0.2s both; }
 .fade-in-delay-2 { animation: fadeInUp 0.8s ease-out 0.4s both; }
 .fade-in-delay-3 { animation: fadeInUp 0.8s ease-out 0.6s both; }
 .fade-in-delay-4 { animation: fadeInUp 0.8s ease-out 0.8s both; }
 .fade-in-delay-5 { animation: fadeInUp 0.8s ease-out 1.0s both; }
 .fade-in-delay-6 { animation: fadeInUp 0.8s ease-out 1.2s both; }
+.fade-in-delay-centered { animation: fadeInOnly 0.8s ease-out 1.2s both; }
+
+@keyframes fadeInOnly {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px); /* Réduit de 50px à 30px */
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -133,19 +143,7 @@ body {
   }
 }
 
-/* Animation slideDown DÉSACTIVÉE - remplacée par fadeIn */
-@keyframes slideDownOLD {
-  from {
-    transform: translateY(-100%); /* PROBLÉMATIQUE */
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* Nouvelle animation pour le header - SANS translateY(-100%) */
+/* Animation pour le header */
 @keyframes fadeInHeader {
   from {
     opacity: 0;
@@ -155,9 +153,9 @@ body {
   }
 }
 
-/* Styles additionnels - ANIMATIONS CORRIGÉES */
+/* Styles additionnels */
 header {
-  animation: fadeInHeader 0.6s ease-out; /* Plus de slideDown */
+  animation: fadeInHeader 0.6s ease-out;
 }
 
 .burger-menu:hover .burger-line {
@@ -171,9 +169,7 @@ button, .btn {
   outline: none;
 }
 
-/* HOVER EFFECTS CORRIGÉS - sans translateY qui cause des problèmes */
 button:hover, .btn:hover {
-  /* transform: translateY(-2px); SUPPRIMÉ - causait des problèmes */
   filter: brightness(1.1);
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
@@ -205,7 +201,7 @@ button:hover, .btn:hover {
   }
 }
 
-/* Classes utilitaires pour éviter les transforms problématiques */
+/* Classes utilitaires */
 .no-transform {
   transform: none !important;
 }

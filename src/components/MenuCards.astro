@@ -1,348 +1,58 @@
 ---
-// src/components/MenuCards.astro - Composant cartes de menu responsive
-import { menus, getMenusCount } from '../data/menu.js';
-
-const menuCount = getMenusCount();
-
-// Fonction pour déterminer les classes selon le nombre de menus
-const getLayoutClasses = (count: number) => {
-  // Classes de base pour le centrage
-  const baseClasses = "mx-auto flex justify-center";
-
-  switch (count) {
-    case 1:
-      return `${baseClasses}`;
-    case 2:
-      return "grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto";
-    case 3:
-      return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto";
-    case 4:
-      return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto";
-    default:
-      return count <= 6
-        ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
-        : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto";
-  }
-};
-
-
-const layoutClasses = getLayoutClasses(menuCount);
+// src/components/MenuCards.astro - Version simplifiée
+import { menus } from '../data/menu.js';
 ---
 
-  <!-- Motif de fond décoratif -->
-  <div class="absolute inset-0 opacity-5">
-    <div class="absolute top-20 left-10 w-32 h-32 border-2 border-amber-600 rounded-full transform rotate-12"></div>
-    <div class="absolute bottom-32 right-16 w-24 h-24 border-2 border-orange-600 transform -rotate-45"></div>
-    <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-yellow-400 rounded-full transform rotate-45"></div>
-  </div>
-
-  <!-- Container avec flex pour centrage -->
-  <div class="container mx-auto px-4 relative z-10 flex flex-col items-center">
-    <!-- Header de section -->
-    <div class="text-center mb-12 w-full">
+<section id="menu" class="py-20 bg-gradient-to-br from-amber-50 to-orange-100 relative">
+  <!-- Container principal -->
+  <div class="container mx-auto px-4">
+    <!-- Titre de section -->
+    <div class="text-center mb-12">
       <h2 class="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-red-700 mb-4">
         Nuestras Especialidades
       </h2>
       <div class="w-16 h-1 bg-yellow-400 mx-auto"></div>
     </div>
 
-    <!-- Container pour le grid/flex avec centrage -->
-    <div class="w-full flex justify-center">
-      <!-- Grid responsive des cartes de menu -->
-      <div class={layoutClasses}>
-        <!-- Pour 1 carte uniquement, wrapper spécial -->
-        {menuCount === 1 ? (
-          <div class="max-w-md w-full">
-            <div class="menu-card vintage-paper p-8 rounded-2xl shadow-lg border-4 border-amber-300/50 relative">
-              <h3 class="font-['Playfair_Display'] text-2xl font-bold text-amber-900 mb-4">{menus[0].name}</h3>
-              <p class="text-amber-700 italic mb-4">{menus[0].description}</p>
-              <div class="mb-4">
-                <span class="text-2xl font-bold text-red-700 bg-amber-200/70 px-4 py-2 rounded-full">{menus[0].price}</span>
-              </div>
-              <ul class="mb-4 space-y-2">
-                {menus[0].dishes.map((dish) => (
-                  <li class="text-amber-900">{dish}</li>
-                ))}
-              </ul>
-              <button
-                class="zoom-btn absolute top-4 right-4 bg-amber-600 text-white rounded-full w-10 h-10 flex items-center justify-center"
-                data-menu-name={menus[0].name}
-                data-menu-price={menus[0].price}
-                data-menu-description={menus[0].description}
-                data-menu-dishes={JSON.stringify(menus[0].dishes)}
-                data-menu-popular={menus[0].popular}
-                aria-label="Zoom sur le menu"
-              >
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"></circle>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2"></line>
-                </svg>
-              </button>
-            </div>
+    <!-- Grille des menus -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {menus.map((menu) => (
+        <div class="bg-gradient-to-br from-amber-100 to-yellow-200 p-6 rounded-xl shadow-lg border-2 border-amber-300 relative flex flex-col h-full hover:scale-[1.02] transition-transform duration-300">
+
+          <!-- Nom du menu -->
+          <h3 class="font-['Playfair_Display'] text-2xl font-bold text-amber-900 mb-3 mt-4 text-center">
+            {menu.name}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-amber-700 italic mb-4 text-center">
+            {menu.description}
+          </p>
+
+          <!-- Prix -->
+          <div class="text-center mb-4">
+            <span class="text-2xl font-bold text-red-700 bg-amber-200 px-4 py-2 rounded-full">
+              {menu.price}
+            </span>
           </div>
-        ) : (
-          <>
-            {menus.map((menu, idx) => (
-              <div class="menu-card vintage-paper p-8 rounded-2xl shadow-lg border-4 border-amber-300/50 relative" key={menu.name}>
-                {menu.popular && (
-                  <div class="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">
-                    MENU POPULAIRE
-                  </div>
-                )}
-                <h3 class="font-['Playfair_Display'] text-2xl font-bold text-amber-900 mb-4">{menu.name}</h3>
-                <p class="text-amber-700 italic mb-4">{menu.description}</p>
-                <div class="mb-4">
-                  <span class="text-2xl font-bold text-red-700 bg-amber-200/70 px-4 py-2 rounded-full">{menu.price}</span>
-                </div>
-                <ul class="mb-4 space-y-2">
-                  {menu.dishes.map((dish) => (
-                    <li class="text-amber-900">{dish}</li>
-                  ))}
-                </ul>
-                <button
-                  class="zoom-btn absolute top-4 right-4 bg-amber-600 text-white rounded-full w-10 h-10 flex items-center justify-center"
-                  data-menu-name={menu.name}
-                  data-menu-price={menu.price}
-                  data-menu-description={menu.description}
-                  data-menu-dishes={JSON.stringify(menu.dishes)}
-                  data-menu-popular={menu.popular}
-                  aria-label="Zoom sur le menu"
-                >
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2"></line>
-                  </svg>
-                </button>
-              </div>
+
+          <!-- Liste des plats -->
+          <ul class="space-y-2 mb-6 flex-grow">
+            {menu.dishes.map((dish) => (
+              <li class="flex items-center gap-2 text-amber-900">
+                <span class="w-2 h-2 bg-yellow-600 rounded-full flex-shrink-0"></span>
+                <span class="text-sm">{dish}</span>
+              </li>
             ))}
-          </>
-        )}
-      </div>
+          </ul>
+
+          <!-- Bouton réserver -->
+          <button class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 mt-auto">
+            Réserver ce menu
+          </button>
+
+        </div>
+      ))}
     </div>
   </div>
 </section>
-
-
-<!-- Modal Zoom -->
-<div id="menuModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500">
-  <div class="modal-content bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 rounded-2xl max-w-4xl mx-4 transform scale-75 transition-all duration-500 shadow-2xl border-4 border-amber-300/50 max-h-[90vh] overflow-y-auto">
-    <div class="relative">
-      <!-- Bouton fermer -->
-      <button
-        id="closeMenuModal"
-        class="absolute top-6 right-6 z-10 w-12 h-12 bg-red-700 hover:bg-red-800 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
-      >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </button>
-
-      <!-- Contenu du modal -->
-      <div class="p-8 md:p-12">
-        <!-- Header du modal -->
-        <div class="text-center mb-8 border-b-4 border-amber-400/30 pb-6">
-          <div id="modalPopularBadge" class="inline-block bg-red-600 text-white text-sm font-bold px-4 py-2 rounded-full mb-4 hidden">
-            MENU POPULAIRE
-          </div>
-          <h2 id="modalMenuName" class="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-amber-900 mb-4">
-            Menu Dégustation
-          </h2>
-          <p id="modalMenuDescription" class="text-xl text-amber-700 italic mb-4">
-            Notre sélection des meilleurs plats
-          </p>
-          <div class="text-center">
-            <span id="modalMenuPrice" class="text-3xl md:text-4xl font-bold text-red-700 bg-amber-200/70 px-6 py-3 rounded-full">
-              65€
-            </span>
-          </div>
-        </div>
-
-        <!-- Liste détaillée des plats -->
-        <div class="space-y-6 mb-8">
-          <h3 class="font-['Playfair_Display'] text-2xl font-bold text-amber-900 text-center mb-6">
-            Composition du menu
-          </h3>
-          <div id="modalDishesList" class="space-y-4">
-            <!-- Les plats seront ajoutés dynamiquement -->
-          </div>
-        </div>
-
-        <!-- Boutons d'action -->
-        <div class="flex flex-col md:flex-row gap-4 pt-6 border-t-2 border-amber-400/30">
-          <button class="flex-1 bg-gradient-to-r from-red-700 to-orange-600 hover:from-red-800 hover:to-orange-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:scale-105 text-lg">
-            Réserver ce menu - <span id="modalPriceBtn">65€</span>
-          </button>
-          <button class="px-8 py-4 border-3 border-amber-600 text-amber-800 hover:bg-amber-600 hover:text-white rounded-xl transition-all duration-300 hover:scale-105 font-bold">
-            Partager
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const zoomBtns = document.querySelectorAll('.zoom-btn');
-    const modal = document.getElementById('menuModal');
-    const closeModal = document.getElementById('closeMenuModal');
-
-    // Gestion du clic sur les boutons zoom
-    zoomBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const menuName = btn.dataset.menuName;
-        const menuPrice = btn.dataset.menuPrice;
-        const menuDescription = btn.dataset.menuDescription;
-        const menuDishes = JSON.parse(btn.dataset.menuDishes || '[]');
-        const menuPopular = btn.dataset.menuPopular === 'true';
-
-        // Remplir le modal
-        document.getElementById('modalMenuName').textContent = menuName;
-        document.getElementById('modalMenuPrice').textContent = menuPrice;
-        document.getElementById('modalPriceBtn').textContent = menuPrice;
-        document.getElementById('modalMenuDescription').textContent = menuDescription;
-
-        // Badge populaire
-        const popularBadge = document.getElementById('modalPopularBadge');
-        if (menuPopular) {
-          popularBadge.classList.remove('hidden');
-        } else {
-          popularBadge.classList.add('hidden');
-        }
-
-        // Ajouter les plats
-        const dishesList = document.getElementById('modalDishesList');
-        dishesList.innerHTML = '';
-
-        menuDishes.forEach((dish, index) => {
-          const dishElement = document.createElement('div');
-          dishElement.className = 'flex items-center gap-4 p-4 bg-white/50 rounded-lg border border-amber-300/30 shadow-sm';
-          dishElement.innerHTML = `
-            <div class="w-8 h-8 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
-              ${index + 1}
-            </div>
-            <div class="flex-1">
-              <p class="text-lg text-amber-900 font-medium leading-relaxed">
-                ${dish}
-              </p>
-            </div>
-            <div class="text-amber-600">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-            </div>
-          `;
-          dishesList.appendChild(dishElement);
-        });
-
-        // Afficher le modal
-        modal.classList.remove('opacity-0', 'pointer-events-none');
-        modal.classList.add('opacity-100');
-
-        setTimeout(() => {
-          modal.querySelector('.modal-content').classList.remove('scale-75');
-          modal.querySelector('.modal-content').classList.add('scale-100');
-        }, 50);
-
-        document.body.style.overflow = 'hidden';
-      });
-    });
-
-    // Fermer le modal
-    function closeModalFunction() {
-      modal.querySelector('.modal-content').classList.remove('scale-100');
-      modal.querySelector('.modal-content').classList.add('scale-75');
-
-      setTimeout(() => {
-        modal.classList.add('opacity-0', 'pointer-events-none');
-        modal.classList.remove('opacity-100');
-        document.body.style.overflow = 'auto';
-      }, 300);
-    }
-
-    closeModal?.addEventListener('click', closeModalFunction);
-
-    modal?.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        closeModalFunction();
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !modal.classList.contains('opacity-0')) {
-        closeModalFunction();
-      }
-    });
-  });
-</script>
-
-<style>
-  /* Effet papier vieilli */
-  .vintage-paper {
-    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 25%, #fed7aa 50%, #fbbf24 75%, #f59e0b 100%);
-    position: relative;
-  }
-
-  .vintage-paper::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 20% 80%, rgba(180, 83, 9, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(146, 64, 14, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(217, 119, 6, 0.05) 0%, transparent 50%);
-    border-radius: inherit;
-  }
-
-  /* Animations des cartes */
-  .menu-card {
-    opacity: 0;
-    animation: fadeInUp 0.6s ease-out forwards;
-  }
-
-  .menu-card:hover .vintage-paper {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  }
-
-  /* Animation du bouton zoom */
-  .zoom-btn {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .zoom-btn:hover {
-    transform: scale(1.1) rotate(90deg);
-    box-shadow: 0 10px 25px rgba(180, 83, 9, 0.4);
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .modal-content {
-      margin: 1rem;
-      max-width: calc(100vw - 2rem);
-      max-height: calc(100vh - 2rem);
-    }
-  }
-
-  /* Animations */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Effet de texture */
-  .vintage-paper::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/><feComponentTransfer><feFuncA type="discrete" tableValues="0 0.1 0 0.05 0"/></fComponentTransfer></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.1"/></svg>');
-    border-radius: inherit;
-    pointer-events: none;
-  }
-</style>
