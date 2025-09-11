@@ -1,5 +1,5 @@
 ---
-// src/components/HeroSection.astro - Version avec parallax corrigé
+// src/components/HeroSection.astro - Version avec structure HTML corrigée
 ---
 
 <section id="hero" class="hero-section relative min-h-screen flex items-end justify-center overflow-hidden">
@@ -31,7 +31,7 @@
   </div>
 
   <!-- Contenu principal -->
-  <div class="hero-content relative z-20 text-center pb-20 px-4 max-w-6xl mx-auto pt-24 md:pt-32">
+  <div class="hero-content relative z-20 text-center pb-20 max-w-6xl mx-auto pt-24 md:pt-32">
     <!-- Titre principal avec effet typewriter -->
     <h1 class="hero-title mb-8">
       <span class="font-['Dancing_Script'] text-6xl md:text-8xl lg:text-9xl font-bold text-yellow-400 drop-shadow-2xl block leading-none mb-4 hero-text-shadow">
@@ -42,30 +42,32 @@
       </span>
     </h1>
 
-    <!-- Indicateurs sociaux avec rating Google -->
-    <div class="hero-social w-full flex flex-col md:flex-row justify-center items-center gap-6 text-white/60 fade-in-delay-6">
+    <!-- Indicateurs sociaux avec rating Google - VERSION CORRIGÉE -->
+    <div class="hero-social flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 text-white/60 fade-in-delay-6">
       <!-- Rating Google Maps -->
       <a
         href="https://maps.app.goo.gl/zADURwXGeKjduqRR9"
         target="_blank"
         rel="noopener noreferrer"
-        class="google-rating-hero group inline-flex justify-center w-full md:w-auto"
+        class="google-rating-hero group w-full md:w-auto flex justify-center"
       >
-        <div class="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20 shadow-lg hover:bg-white/20 hover:border-yellow-400/50 transition-all duration-300 max-w-[28rem]">
-          <!-- Left block (icone + texte) -->
-          <div class="flex items-center gap-3">
-            <div class="text-2xl">⭐</div>
-            <!-- Ici on centre le texte verticalement -->
-            <div class="flex flex-col items-center md:items-start">
-              <div class="text-sm font-bold text-white group-hover:text-yellow-400 transition-colors">4.8/5</div>
-              <div class="text-xs text-white/70 group-hover:text-yellow-300">Google</div>
-            </div>
+        <div class="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-5 py-3 border border-white/20 shadow-lg hover:bg-white/20 hover:border-yellow-400/50 transition-all duration-300">
+          <!-- Icône Google -->
+          <div class="text-2xl">⭐</div>
+
+          <!-- Bloc rating -->
+          <div class="flex flex-col items-start">
+            <div class="text-sm font-bold text-white group-hover:text-yellow-400 transition-colors">4.8/5</div>
+            <div class="text-xs text-white/70 group-hover:text-yellow-300">Google</div>
           </div>
 
-          <!-- Right block (étoiles + nombre avis) -->
-          <div class="flex items-center gap-2 text-xs ml-2">
+          <!-- Séparateur vertical -->
+          <div class="w-px h-8 bg-white/20 mx-2"></div>
+
+          <!-- Étoiles et avis -->
+          <div class="flex items-center gap-2">
             <div class="stars text-yellow-400 text-sm">★★★★★</div>
-            <div class="text-white/80 group-hover:text-white">(492 avis)</div>
+            <div class="text-xs text-white/80 group-hover:text-white">(492 avis)</div>
           </div>
         </div>
       </a>
@@ -75,18 +77,23 @@
         href="https://www.tripadvisor.fr/Restaurant_Review-g608760-d7083433-Reviews-EL_Pueblo_Del_Papito-Douarnenez_Finistere_Brittany.html"
         target="_blank"
         rel="noopener noreferrer"
-        class="tripadvisor-rating group inline-flex justify-center w-full md:w-auto"
+        class="tripadvisor-rating group w-full md:w-auto flex justify-center"
       >
-        <div class="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20 shadow-lg hover:bg-white/20 hover:border-green-400/50 transition-all duration-300 max-w-[28rem]">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm group-hover:bg-green-400 transition-colors">T</div>
-            <div class="flex flex-col items-center md:items-start">
-              <div class="text-sm font-bold text-white group-hover:text-green-400 transition-colors">4.6/5</div>
-              <div class="text-xs text-white/70 group-hover:text-green-300">TripAdvisor</div>
-            </div>
+        <div class="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-5 py-3 border border-white/20 shadow-lg hover:bg-white/20 hover:border-green-400/50 transition-all duration-300">
+          <!-- Logo TripAdvisor -->
+          <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm group-hover:bg-green-400 transition-colors">T</div>
+
+          <!-- Bloc rating -->
+          <div class="flex flex-col items-start">
+            <div class="text-sm font-bold text-white group-hover:text-green-400 transition-colors">4.6/5</div>
+            <div class="text-xs text-white/70 group-hover:text-green-300">TripAdvisor</div>
           </div>
 
-          <div class="flex items-center gap-2 text-xs ml-2">
+          <!-- Séparateur vertical -->
+          <div class="w-px h-8 bg-white/20 mx-2"></div>
+
+          <!-- Cercles et avis -->
+          <div class="flex items-center gap-2">
             <div class="circles flex gap-1">
               <div class="w-2 h-2 bg-green-500 rounded-full group-hover:bg-green-400"></div>
               <div class="w-2 h-2 bg-green-500 rounded-full group-hover:bg-green-400"></div>
@@ -94,12 +101,12 @@
               <div class="w-2 h-2 bg-green-500 rounded-full group-hover:bg-green-400"></div>
               <div class="w-2 h-2 bg-green-300 rounded-full group-hover:bg-green-200"></div>
             </div>
-            <div class="text-white/80 group-hover:text-white ml-2">(245 avis)</div>
+            <div class="text-xs text-white/80 group-hover:text-white">(245 avis)</div>
           </div>
         </div>
       </a>
     </div>
-  </div>
+  </div> <!-- Fermeture correcte du hero-content -->
 
   <!-- Flèche animée pour inviter au scroll -->
   <div class="scroll-indicator fixed bottom-8 right-8 z-30 animate-bounce">
@@ -118,8 +125,6 @@
     const heroBg = document.querySelector('.hero-bg');
     const heroContent = document.querySelector('.hero-content');
     const heroSection = document.querySelector('.hero-section');
-
-
 
     // Gestionnaire de scroll optimisé avec throttling
     function handleScroll() {
@@ -175,17 +180,6 @@
   .hero-section {
     min-height: 100vh;
     position: relative;
-    /* Suppression de l'isolation qui pouvait causer des problèmes */
-  }
-
-  /* Background statique - plus de transforms dynamiques */
-  .hero-bg {
-    /* Suppression des optimisations GPU qui causaient des problèmes */
-  }
-
-  /* Contenu statique */
-  .hero-content {
-    /* Suppression des optimisations GPU qui causaient des problèmes */
   }
 
   /* Animation float optimisée */
@@ -317,13 +311,13 @@
   }
 
   /* Animation de pulsation pour les éléments sociaux */
-  .hero-social > div:hover {
+  .hero-social > a:hover > div {
     animation: pulse 1s infinite;
   }
 
   @keyframes pulse {
     0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    50% { transform: scale(1.02); }
     100% { transform: scale(1); }
   }
 
