@@ -5,6 +5,7 @@ import HeroSection from '../components/HeroSection.astro';
 import DishCarousel from '../components/DishCarousel.astro';
 import MenuCards from '../components/MenuCards.astro';
 import RestaurantCarousel from '../components/RestaurantCarousel.astro';
+import ContactSection from '../components/ContactSection.astro';
 
 
 ---
@@ -15,70 +16,14 @@ import RestaurantCarousel from '../components/RestaurantCarousel.astro';
   <DishCarousel />
   <MenuCards />
   <RestaurantCarousel />
-
+  <ContactSection />
 
 
   <main>
 
 
-  
-    <!-- Section Contact -->
-    <section class="py-20 bg-neutral-warm">
-      <div class="container-custom">
-        <div class="text-center mb-12">
-          <h2 class="primary-font text-5xl text-primary mb-4">¡Visitanos!</h2>
-          <div class="w-24 h-1 bg-accent mx-auto"></div>
-        </div>
 
-        <div class="grid md:grid-cols-2 gap-12">
-          <div class="space-y-6">
-            <div class="flex items-start gap-4">
-              <div class="text-3xl text-secondary">📍</div>
-              <div>
-                <h3 class="primary-font text-xl text-secondary mb-2">Adresse</h3>
-                <p class="secondary-font text-lg">456 Rue des Tropiques<br>75011 Paris</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-4">
-              <div class="text-3xl text-secondary">📞</div>
-              <div>
-                <h3 class="primary-font text-xl text-secondary mb-2">Téléphone</h3>
-                <p class="secondary-font text-lg">+33 1 45 67 89 10</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-4">
-              <div class="text-3xl text-secondary">🕒</div>
-              <div>
-                <h3 class="primary-font text-xl text-secondary mb-2">Horaires</h3>
-                <p class="secondary-font">Mardi - Dimanche: 18h - 2h<br>
-                Fermé le lundi</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-lg shadow-xl p-8">
-            <h3 class="primary-font text-2xl text-primary mb-6 text-center">Réservation</h3>
-            <form class="space-y-4">
-              <input type="text" placeholder="Nom" class="w-full p-3 border border-neutral-300 rounded-lg focus:border-secondary focus:outline-none">
-              <input type="email" placeholder="Email" class="w-full p-3 border border-neutral-300 rounded-lg focus:border-secondary focus:outline-none">
-              <input type="tel" placeholder="Téléphone" class="w-full p-3 border border-neutral-300 rounded-lg focus:border-secondary focus:outline-none">
-              <select class="w-full p-3 border border-neutral-300 rounded-lg focus:border-secondary focus:outline-none">
-                <option>Nombre de personnes</option>
-                <option>2 personnes</option>
-                <option>4 personnes</option>
-                <option>6 personnes</option>
-                <option>8+ personnes</option>
-              </select>
-              <button type="submit" class="w-full bg-secondary hover:bg-primary text-white font-bold py-3 px-6 rounded-lg transition-colors">
-                ¡Reservar!
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
+    
   </main>
 
   <footer class="bg-neutral-dark text-white py-12">
