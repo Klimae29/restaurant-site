@@ -6,8 +6,9 @@
   <div class="contact-container">
     <!-- Titre de la section -->
     <div class="contact-header">
-      <h2 class="contact-title">Contactez-nous</h2>
-      <p class="contact-subtitle">Nous serions ravis de vous accueillir</p>
+      <h2 class="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-red-700 mb-4">Contactez-nous</h2>
+      <p class="text-gray-600 text-lg max-w-2xl mx-auto mb-6">Nous serions ravis de vous accueillir</p>
+      <div class="w-16 h-1 bg-yellow-400 mx-auto"></div>
     </div>
 
     <div class="contact-content">
@@ -69,14 +70,35 @@
         <!-- Carte -->
         <div class="info-card map-card">
           <h3 class="info-title">Nous trouver</h3>
-          <div class="map-container">
-            <!-- Placeholder pour la carte - à remplacer par une vraie carte -->
+          <div class="map-container" onclick="openMaps()">
             <div class="map-placeholder">
-              <svg class="map-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+              <!-- Image de carte simple vue du dessus -->
+              <svg class="map-visual" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Fond -->
+                <rect width="300" height="200" fill="#f8fafc"/>
+
+                <!-- Quadrillage simple de rues -->
+                <defs>
+                  <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                    <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+                  </pattern>
+                </defs>
+                <rect width="300" height="200" fill="url(#grid)"/>
+
+                <!-- Quelques rues principales -->
+                <line x1="0" y1="100" x2="300" y2="100" stroke="#cbd5e1" stroke-width="3"/>
+                <line x1="150" y1="0" x2="150" y2="200" stroke="#cbd5e1" stroke-width="3"/>
+
+                <!-- Pin du restaurant au centre -->
+                <circle cx="150" cy="100" r="8" fill="#ef4444"/>
+                <circle cx="150" cy="100" r="4" fill="#ffffff"/>
               </svg>
-              <p>Carte interactive</p>
-              <p class="map-note">Cliquez pour ouvrir dans Google Maps</p>
+
+              <!-- Overlay avec texte -->
+              <div class="map-overlay">
+                <p>📍 Notre restaurant</p>
+                <p class="map-note">Cliquez pour ouvrir dans Maps</p>
+              </div>
             </div>
           </div>
         </div>
@@ -169,6 +191,76 @@
 </section>
 
 <script>
+  // FONCTION OPENMAPS - Avec détection d'appareil pour iOS/Android/Desktop
+  window.openMaps = function() {
+    console.log('Fonction openMaps appelée'); // Pour débugger
+
+    // Coordonnées de votre restaurant
+    const latitude = 48.09576;
+    const longitude = -4.34926;
+    const restaurantName = "Restaurant El Pueblo Del Papito";
+    const address = "54 Rue Pierre Brossolette, 29100 Douarnenez"; // Remplacez par votre vraie adresse
+
+    // Détection de l'appareil
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isAndroid = /Android/.test(navigator.userAgent);
+
+    console.log('Appareil détecté - iOS:', isIOS, 'Android:', isAndroid);
+
+    let url;
+
+    if (isIOS) {
+      // Pour iOS - Essayer Apple Maps en premier, puis Google Maps en fallback
+      console.log('Ouverture pour iOS - Apple Maps');
+
+      // URL pour Apple Maps
+      const appleMapsUrl = `maps://maps.google.com/maps?daddr=${latitude},${longitude}&amp;ll=`;
+
+      // Créer un iframe invisible pour tenter d'ouvrir Apple Maps
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = appleMapsUrl;
+      document.body.appendChild(iframe);
+
+      // Fallback vers Google Maps après un court délai
+      setTimeout(() => {
+        document.body.removeChild(iframe);
+        const googleFallback = `https://maps.google.com/maps?q=${latitude},${longitude}`;
+        console.log('Fallback iOS vers Google Maps:', googleFallback);
+        window.open(googleFallback, '_blank');
+      }, 500);
+
+    } else if (isAndroid) {
+      // Pour Android - Ouvrir Google Maps natif
+      console.log('Ouverture pour Android - Google Maps natif');
+
+      // Essayer le protocole geo: pour l'app native
+      const geoUrl = `geo:${latitude},${longitude}?q=${latitude},${longitude}(${encodeURIComponent(restaurantName)})`;
+
+      // Créer un lien invisible et le cliquer
+      const link = document.createElement('a');
+      link.href = geoUrl;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Fallback vers Google Maps web après un court délai
+      setTimeout(() => {
+        const googleFallback = `https://maps.google.com/maps?q=${latitude},${longitude}`;
+        console.log('Fallback Android vers Google Maps web:', googleFallback);
+        window.open(googleFallback, '_blank');
+      }, 500);
+
+    } else {
+      // Pour desktop - Google Maps dans le navigateur
+      console.log('Ouverture pour Desktop - Google Maps web');
+      url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+      console.log('URL Desktop:', url);
+      window.open(url, '_blank');
+    }
+  };
+
   document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
 
@@ -199,13 +291,12 @@
       });
     }
 
-    // Gestion du clic sur la carte placeholder
-    const mapPlaceholder = document.querySelector('.map-placeholder');
-    if (mapPlaceholder) {
-      mapPlaceholder.addEventListener('click', function() {
-        // Remplacer par les vraies coordonnées du restaurant
-        const address = encodeURIComponent('123 Rue de la Gastronomie, 75001 Paris, France');
-        window.open(`https://www.google.com/maps/search/?api=1&query=${address}`, '_blank');
+    // Alternative: Attacher l'événement clic directement en JavaScript
+    const mapContainer = document.querySelector('.map-container');
+    if (mapContainer) {
+      mapContainer.addEventListener('click', function() {
+        console.log('Clic sur la carte détecté'); // Pour débugger
+        window.openMaps();
       });
     }
   });
@@ -214,14 +305,13 @@
 <style>
   /* Variables CSS personnalisées - à déplacer dans votre fichier CSS principal */
   .contact-section {
-    --contact-bg: #fafafa;
     --contact-text: #333;
-    --contact-accent: #d97706;
+    --contact-accent: #FF6B35;
     --contact-card-bg: #ffffff;
     --contact-shadow: rgba(0, 0, 0, 0.1);
     --contact-border: #e5e7eb;
 
-    background-color: var(--contact-bg);
+    background: linear-gradient(to bottom right, #fffbeb, #fed7aa);
     color: var(--contact-text);
     padding: 5rem 0;
   }
@@ -244,10 +334,7 @@
     color: var(--contact-text);
   }
 
-  .contact-subtitle {
-    font-size: 1.25rem;
-    color: #6b7280;
-  }
+
 
   .contact-content {
     display: grid;
@@ -338,38 +425,53 @@
 
   /* Carte */
   .map-container {
+    position: relative;
     height: 200px;
     border-radius: 0.5rem;
     overflow: hidden;
     border: 1px solid var(--contact-border);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .map-container:hover {
+    transform: scale(1.02);
   }
 
   .map-placeholder {
+    position: relative;
+    width: 100%;
     height: 100%;
-    background: #f3f4f6;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.2s;
+    background: #f8fafc;
   }
 
-  .map-placeholder:hover {
-    background: #e5e7eb;
+  .map-visual {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 
-  .map-icon {
-    width: 3rem;
-    height: 3rem;
-    color: var(--contact-accent);
-    margin-bottom: 0.5rem;
+  .map-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .map-overlay p {
+    margin: 2px 0;
+    font-size: 14px;
+    font-weight: 600;
   }
 
   .map-note {
-    font-size: 0.75rem;
-    color: #6b7280;
-    margin-top: 0.25rem;
+    font-size: 12px !important;
+    opacity: 0.9;
+    font-weight: 400 !important;
   }
 
   /* Formulaire */
