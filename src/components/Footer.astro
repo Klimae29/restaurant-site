@@ -1,0 +1,582 @@
+---
+// Footer.astro
+---
+
+<footer class="restaurant-footer">
+  <div class="footer-content">
+    <!-- Copyright à gauche -->
+    <div class="footer-left">
+      <p>&copy;2025 Corazón Latino. Tous droits réservés.</p>
+    </div>
+
+    <!-- Liens légaux à droite -->
+    <div class="footer-right">
+      <button class="footer-link" id="mentionsLink">Mentions légales</button>
+      <span class="separator">•</span>
+      <button class="footer-link" id="privacyLink">Politique de confidentialité</button>
+      <span class="separator">•</span>
+      <button class="footer-link" id="cookiesLink">Gérer les cookies</button>
+    </div>
+  </div>
+</footer>
+
+<!-- Modal Mentions Légales -->
+<div class="modal" id="mentionsModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Mentions Légales</h2>
+      <button class="modal-close" data-modal="mentionsModal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Informations sur l'entreprise</h3>
+      <p><strong>Raison sociale :</strong> Corazón Latino SARL</p>
+      <p><strong>Siège social :</strong> 42 Rue de la Salsa, 75011 Paris, France</p>
+      <p><strong>SIRET :</strong> 123 456 789 00012</p>
+      <p><strong>RCS :</strong> Paris B 123 456 789</p>
+      <p><strong>Capital social :</strong> 10 000 €</p>
+      <p><strong>Téléphone :</strong> +33 1 45 67 89 10</p>
+      <p><strong>Email :</strong> contact@corazon-latino.fr</p>
+
+      <h3>Directeur de la publication</h3>
+      <p>Maria González, Gérante</p>
+
+      <h3>Hébergement</h3>
+      <p><strong>Hébergeur :</strong> OVH SAS</p>
+      <p><strong>Adresse :</strong> 2 rue Kellermann, 59100 Roubaix, France</p>
+
+      <h3>Création du site</h3>
+      <p><strong>Développeur :</strong> Alexandre Dubois</p>
+      <p><strong>Email :</strong> alex.dubois.dev@gmail.com</p>
+      <p><strong>Portfolio :</strong> www.alexandre-dubois-web.fr</p>
+
+      <h3>Propriété intellectuelle</h3>
+      <p>L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés, y compris pour les documents téléchargeables et les représentations iconographiques et photographiques.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Politique de Confidentialité -->
+<div class="modal" id="privacyModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Politique de Confidentialité</h2>
+      <button class="modal-close" data-modal="privacyModal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Collecte des données personnelles</h3>
+      <p>Nous collectons les données personnelles suivantes :</p>
+      <ul>
+        <li>Nom et prénom via le formulaire de contact</li>
+        <li>Adresse email via le formulaire de contact</li>
+        <li>Numéro de téléphone (optionnel)</li>
+        <li>Message et demandes spécifiques</li>
+      </ul>
+
+      <h3>Finalité du traitement</h3>
+      <p>Vos données sont utilisées pour :</p>
+      <ul>
+        <li>Répondre à vos demandes de contact</li>
+        <li>Traiter vos réservations</li>
+        <li>Améliorer nos services</li>
+      </ul>
+
+      <h3>Base légale</h3>
+      <p>Le traitement de vos données personnelles est basé sur votre consentement et sur l'exécution d'un contrat.</p>
+
+      <h3>Conservation des données</h3>
+      <p>Vos données sont conservées pendant 3 ans maximum après votre dernier contact.</p>
+
+      <h3>Vos droits</h3>
+      <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+      <ul>
+        <li>Droit d'accès à vos données</li>
+        <li>Droit de rectification</li>
+        <li>Droit d'effacement</li>
+        <li>Droit à la portabilité</li>
+        <li>Droit d'opposition</li>
+      </ul>
+      <p>Pour exercer ces droits, contactez-nous à : contact@corazon-latino.fr</p>
+
+      <h3>Contact du DPO</h3>
+      <p>Pour toute question relative à la protection de vos données : dpo@corazon-latino.fr</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Gestion des Cookies -->
+<div class="modal" id="cookiesModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Gestion des Cookies</h2>
+      <button class="modal-close" data-modal="cookiesModal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Qu'est-ce qu'un cookie ?</h3>
+      <p>Un cookie est un petit fichier texte déposé sur votre ordinateur lors de la visite d'un site web.</p>
+
+      <h3>Types de cookies utilisés</h3>
+
+      <div class="cookie-category">
+        <h4>Cookies essentiels</h4>
+        <p>Nécessaires au fonctionnement du site. Ils ne peuvent pas être désactivés.</p>
+        <div class="cookie-toggle">
+          <input type="checkbox" id="essential" checked disabled>
+          <label for="essential">Toujours actifs</label>
+        </div>
+      </div>
+
+      <div class="cookie-category">
+        <h4>Cookies de performance</h4>
+        <p>Nous aident à comprendre comment les visiteurs utilisent notre site.</p>
+        <div class="cookie-toggle">
+          <input type="checkbox" id="analytics">
+          <label for="analytics">Autoriser</label>
+        </div>
+      </div>
+
+      <div class="cookie-category">
+        <h4>Cookies de fonctionnalité</h4>
+        <p>Permettent de mémoriser vos préférences et d'améliorer votre expérience.</p>
+        <div class="cookie-toggle">
+          <input type="checkbox" id="functional">
+          <label for="functional">Autoriser</label>
+        </div>
+      </div>
+
+      <div class="cookie-category">
+        <h4>Cookies publicitaires</h4>
+        <p>Utilisés pour personnaliser les publicités selon vos centres d'intérêt.</p>
+        <div class="cookie-toggle">
+          <input type="checkbox" id="marketing">
+          <label for="marketing">Autoriser</label>
+        </div>
+      </div>
+
+      <div class="cookie-actions">
+        <button class="btn btn-accept-all" id="acceptAll">Tout accepter</button>
+        <button class="btn btn-save" id="savePreferences">Enregistrer mes préférences</button>
+        <button class="btn btn-reject" id="rejectAll">Tout refuser</button>
+      </div>
+
+      <p class="cookie-info">Pour plus d'informations sur les cookies, consultez notre politique de confidentialité.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Banner de cookies (première visite) -->
+<div class="cookie-banner" id="cookieBanner">
+  <div class="cookie-banner-content">
+    <div class="cookie-banner-text">
+      <h3>🍪 Ce site utilise des cookies</h3>
+      <p>Nous utilisons des cookies pour améliorer votre expérience sur notre site. Certains sont essentiels au fonctionnement du site, d'autres nous aident à mieux vous servir.</p>
+    </div>
+    <div class="cookie-banner-actions">
+      <button class="btn btn-customize" id="customizeCookies">Personnaliser</button>
+      <button class="btn btn-accept" id="acceptAllCookies">Tout accepter</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Gestion des modals
+  document.addEventListener('DOMContentLoaded', function() {
+    // Ouvrir les modals
+    document.getElementById('mentionsLink').addEventListener('click', () => {
+      document.getElementById('mentionsModal').style.display = 'flex';
+    });
+
+    document.getElementById('privacyLink').addEventListener('click', () => {
+      document.getElementById('privacyModal').style.display = 'flex';
+    });
+
+    document.getElementById('cookiesLink').addEventListener('click', () => {
+      document.getElementById('cookiesModal').style.display = 'flex';
+    });
+
+    // Fermer les modals
+    document.querySelectorAll('.modal-close').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const modalId = e.target.getAttribute('data-modal');
+        document.getElementById(modalId).style.display = 'none';
+      });
+    });
+
+    // Fermer modal en cliquant à l'extérieur
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    });
+
+    // Gestion de la banner de cookies
+    const cookieBanner = document.getElementById('cookieBanner');
+    const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+
+    if (!cookiesAccepted) {
+      cookieBanner.style.display = 'flex';
+    }
+
+    // Accepter tous les cookies depuis la banner
+    document.getElementById('acceptAllCookies').addEventListener('click', () => {
+      localStorage.setItem('cookiesAccepted', 'all');
+      localStorage.setItem('analytics', 'true');
+      localStorage.setItem('functional', 'true');
+      localStorage.setItem('marketing', 'true');
+      cookieBanner.style.display = 'none';
+    });
+
+    // Personnaliser depuis la banner
+    document.getElementById('customizeCookies').addEventListener('click', () => {
+      cookieBanner.style.display = 'none';
+      document.getElementById('cookiesModal').style.display = 'flex';
+    });
+
+    // Charger les préférences existantes
+    loadCookiePreferences();
+
+    // Gestion des boutons dans le modal cookies
+    document.getElementById('acceptAll').addEventListener('click', () => {
+      setAllCookies(true);
+      saveCookiePreferences();
+      document.getElementById('cookiesModal').style.display = 'none';
+    });
+
+    document.getElementById('rejectAll').addEventListener('click', () => {
+      setAllCookies(false);
+      saveCookiePreferences();
+      document.getElementById('cookiesModal').style.display = 'none';
+    });
+
+    document.getElementById('savePreferences').addEventListener('click', () => {
+      saveCookiePreferences();
+      document.getElementById('cookiesModal').style.display = 'none';
+    });
+  });
+
+  function loadCookiePreferences() {
+    document.getElementById('analytics').checked = localStorage.getItem('analytics') === 'true';
+    document.getElementById('functional').checked = localStorage.getItem('functional') === 'true';
+    document.getElementById('marketing').checked = localStorage.getItem('marketing') === 'true';
+  }
+
+  function setAllCookies(value) {
+    document.getElementById('analytics').checked = value;
+    document.getElementById('functional').checked = value;
+    document.getElementById('marketing').checked = value;
+  }
+
+  function saveCookiePreferences() {
+    localStorage.setItem('cookiesAccepted', 'custom');
+    localStorage.setItem('analytics', document.getElementById('analytics').checked);
+    localStorage.setItem('functional', document.getElementById('functional').checked);
+    localStorage.setItem('marketing', document.getElementById('marketing').checked);
+
+    // Ici vous pouvez ajouter la logique pour activer/désactiver réellement les cookies
+    console.log('Préférences cookies sauvegardées:', {
+      analytics: document.getElementById('analytics').checked,
+      functional: document.getElementById('functional').checked,
+      marketing: document.getElementById('marketing').checked
+    });
+  }
+</script>
+
+<style>
+  /* Footer */
+  .restaurant-footer {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 1rem 0;
+    position: relative;
+    z-index: 10;
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-left p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .footer-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .footer-link {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: inherit;
+    font-family: inherit;
+    padding: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .footer-link:hover {
+    opacity: 0.8;
+  }
+
+  .separator {
+    color: var(--secondary-color);
+    margin: 0 0.25rem;
+  }
+
+  /* Modals */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay-color);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .modal-content {
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-header h2 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6b7280;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-close:hover {
+    color: var(--primary-color);
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+    color: var(--text-color);
+  }
+
+  .modal-body h3 {
+    color: var(--primary-color);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-body h3:first-child {
+    margin-top: 0;
+  }
+
+  .modal-body p {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .modal-body ul {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  .modal-body li {
+    margin-bottom: 0.25rem;
+  }
+
+  /* Gestion des cookies */
+  .cookie-category {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+  }
+
+  .cookie-category h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-color);
+  }
+
+  .cookie-toggle {
+    margin-top: 0.75rem;
+  }
+
+  .cookie-toggle input[type="checkbox"] {
+    margin-right: 0.5rem;
+  }
+
+  .cookie-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+
+  .btn-accept-all, .btn-accept {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+  .btn-save, .btn-customize {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+  }
+
+  .btn-reject {
+    background-color: #6b7280;
+    color: white;
+  }
+
+  .btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .cookie-info {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-top: 1rem;
+  }
+
+  /* Banner de cookies */
+  .cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-color);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    padding: 1rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cookie-banner-content {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .cookie-banner-text h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--color-primary);
+    font-size: 1.1rem;
+  }
+
+  .cookie-banner-text p {
+    margin: 0;
+    color: var(--color-neutral-dark);
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .cookie-banner-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.75rem;
+    }
+
+    .footer-right {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .modal-content {
+      margin: 1rem;
+      max-height: 90vh;
+    }
+
+    .modal-header, .modal-body {
+      padding: 1rem;
+    }
+
+    .cookie-banner-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .cookie-banner-actions {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .cookie-actions {
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-right {
+      font-size: 0.8rem;
+    }
+
+    .cookie-banner {
+      padding: 0.75rem;
+    }
+  }
+</style>

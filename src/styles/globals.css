@@ -13,7 +13,35 @@
   --color-accent: #FFD23F;
   --color-neutral-dark: #2F1B14;
   --color-neutral-warm: #FFF8DC;
+  --color-neutral-light: #F8F4F0;    /* Beige très clair pour backgrounds */
+  --color-neutral-medium: #8B7355;   /* Brun moyen pour textes secondaires */
+  --color-success: #059669;          /* Vert pour validations/succès */
+  --color-danger: #DC2626;           /* Rouge pour erreurs */
+  --color-warning: #D97706;          /* Orange pour alertes */
+  --color-text-muted: #6B7280;       /* Gris pour textes atténués */
+  --color-border: #E5E7EB;           /* Gris clair pour bordures */
+  --color-shadow: rgba(47, 27, 20, 0.1); /* Ombre avec votre brun */
 }
+
+/* Classes de polices réutilisables */
+.font-primary {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.font-heading {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-script {
+  font-family: 'Dancing Script', cursive;
+}
+
+/* Classes de poids de police */
+.font-light { font-weight: 300; }
+.font-normal { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
 
 /* Base styles */
 * {

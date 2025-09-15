@@ -3,13 +3,13 @@
 import { dishes } from '../data/dishes.js';
 ---
 
-<section class="dish-carousel-section bg-white overflow-hidden" style="padding-top: 0; margin-top: 0;">
+<section class="dish-carousel-section overflow-hidden" style="padding-top: 0; margin-top: 0;">
   <!-- Header simple avec contrôle précis de l'espacement -->
   <div class="header-section text-center" style="padding-top: 2rem; margin-bottom: 1rem;">
-    <h2 class="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-red-700 mb-4">
+    <h2 class="dish-carousel-title font-heading mb-4">
       Nuestros Platos
     </h2>
-    <div class="w-16 h-1 bg-yellow-400 mx-auto"></div>
+    <div class="dish-carousel-divider mx-auto"></div>
   </div>
 
   <!-- Carousel défilant -->
@@ -44,18 +44,17 @@ import { dishes } from '../data/dishes.js';
           <!-- Overlay sombre au hover -->
           <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300"></div>
 
-
           <!-- Titre et pays qui apparaissent au hover -->
           <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
             <div class="text-center text-white px-4">
-              <h3 class="font-['Playfair_Display'] text-xl font-bold mb-2 drop-shadow-lg">
+              <h3 class="font-heading text-xl font-bold mb-2 drop-shadow-lg">
                 {dish.name}
               </h3>
               <p class="text-sm opacity-90 drop-shadow-md font-medium">
                 {dish.country}
               </p>
 
-              <div class="w-12 h-0.5 bg-yellow-400 mx-auto mt-2 transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-150"></div>
+              <div class="dish-hover-divider mx-auto mt-2 transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-150"></div>
             </div>
           </div>
 
@@ -94,14 +93,14 @@ import { dishes } from '../data/dishes.js';
           <!-- Titre et pays qui apparaissent au hover -->
           <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
             <div class="text-center text-white px-4">
-              <h3 class="font-['Playfair_Display'] text-xl font-bold mb-2 drop-shadow-lg">
+              <h3 class="font-heading text-xl font-bold mb-2 drop-shadow-lg">
                 {dish.name}
               </h3>
               <p class="text-sm opacity-90 drop-shadow-md font-medium">
                 {dish.country}
               </p>
-              
-              <div class="w-12 h-0.5 bg-yellow-400 mx-auto mt-2 transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-150"></div>
+
+              <div class="dish-hover-divider mx-auto mt-2 transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-150"></div>
             </div>
           </div>
 
@@ -112,13 +111,13 @@ import { dishes } from '../data/dishes.js';
 </section>
 
 <!-- Modal Zoom -->
-<div id="dishModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500">
+<div id="dishModal" class="dish-modal">
   <div class="modal-content bg-white rounded-3xl max-w-2xl mx-4 transform scale-75 transition-all duration-500">
     <div class="relative">
       <!-- Bouton fermer -->
       <button
         id="closeModal"
-        class="absolute top-4 right-4 z-10 w-10 h-10 bg-red-700 hover:bg-red-800 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+        class="modal-close-button"
       >
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -146,43 +145,43 @@ import { dishes } from '../data/dishes.js';
       <div class="p-8">
         <div class="flex justify-between items-start mb-4">
           <div>
-            <h3 id="modalTitle" class="font-['Playfair_Display'] text-3xl font-bold text-gray-800 mb-2">
+            <h3 id="modalTitle" class="modal-dish-title font-heading mb-2">
               Nom du plat
             </h3>
             <div class="flex items-center gap-4 mb-2">
-              <p id="modalCountry" class="text-lg text-red-700 font-medium">
+              <p id="modalCountry" class="modal-country">
                 🇦🇷 Pays
               </p>
-              <p id="modalPrepTime" class="text-sm text-gray-500">
+              <p id="modalPrepTime" class="modal-prep-time">
                 ⏱️ 30 min
               </p>
             </div>
-            <p id="modalCategory" class="text-sm text-gray-600 font-medium">
+            <p id="modalCategory" class="modal-category">
               Catégorie
             </p>
           </div>
-          <span id="modalPrice" class="text-3xl font-bold text-red-700">
+          <span id="modalPrice" class="modal-price">
             32€
           </span>
         </div>
 
-        <p id="modalDescription" class="text-gray-600 leading-relaxed mb-4">
+        <p id="modalDescription" class="modal-description leading-relaxed mb-4">
           Description du plat...
         </p>
 
         <!-- Ingrédients -->
         <div class="mb-6">
-          <h4 class="font-bold text-gray-800 mb-2">Ingrédients :</h4>
+          <h4 class="modal-ingredients-title mb-2">Ingrédients :</h4>
           <div id="modalIngredients" class="flex flex-wrap gap-2">
             <!-- Les ingrédients seront ajoutés dynamiquement -->
           </div>
         </div>
 
         <div class="flex gap-4">
-          <button class="flex-1 bg-gradient-to-r from-red-700 to-orange-600 hover:from-red-800 hover:to-orange-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 hover:scale-105">
+          <button class="modal-order-btn flex-1">
             Commander - <span id="modalPriceBtn">32€</span>
           </button>
-          <button id="favoriteBtn" class="px-6 py-4 border-2 border-red-700 text-red-700 hover:bg-red-700 hover:text-white rounded-xl transition-all duration-300 hover:scale-105">
+          <button id="favoriteBtn" class="modal-favorite-btn">
             ❤️
           </button>
         </div>
@@ -247,14 +246,14 @@ import { dishes } from '../data/dishes.js';
 
         if (dishPopular) {
           const popularBadge = document.createElement('div');
-          popularBadge.className = 'bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full';
+          popularBadge.className = 'popular-badge';
           popularBadge.textContent = 'POPULAIRE';
           modalBadges.appendChild(popularBadge);
         }
 
         if (dishSpicy) {
           const spicyBadge = document.createElement('div');
-          spicyBadge.className = 'bg-orange-600 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1';
+          spicyBadge.className = 'spicy-badge';
           spicyBadge.innerHTML = '🌶️ ÉPICÉ';
           modalBadges.appendChild(spicyBadge);
         }
@@ -264,7 +263,7 @@ import { dishes } from '../data/dishes.js';
         modalIngredients.innerHTML = '';
         dishIngredients.forEach(ingredient => {
           const ingredientTag = document.createElement('span');
-          ingredientTag.className = 'bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full';
+          ingredientTag.className = 'ingredient-tag';
           ingredientTag.textContent = ingredient;
           modalIngredients.appendChild(ingredientTag);
         });
@@ -321,10 +320,182 @@ import { dishes } from '../data/dishes.js';
 </script>
 
 <style>
-  /* Forcer l'espacement de la section */
+  /* Section principale */
   .dish-carousel-section {
+    background: white;
     margin-top: 0 !important;
     padding-top: 0 !important;
+  }
+
+  /* Header */
+  .dish-carousel-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .dish-carousel-divider {
+    width: 4rem;
+    height: 0.25rem;
+    background-color: var(--color-accent);
+  }
+
+  .dish-hover-divider {
+    width: 3rem;
+    height: 0.125rem;
+    background-color: var(--color-accent);
+  }
+
+  /* Modal */
+  .dish-modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease;
+  }
+
+  .dish-modal.opacity-100 {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .dish-modal.opacity-0 {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Bouton fermer */
+  .modal-close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .modal-close-button:hover {
+    background-color: var(--color-secondary);
+    transform: scale(1.1);
+  }
+
+  /* Contenu du modal */
+  .modal-dish-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--color-neutral-dark);
+  }
+
+  .modal-country {
+    font-size: 1.125rem;
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  .modal-prep-time {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .modal-category {
+    font-size: 0.875rem;
+    color: var(--color-neutral-medium);
+    font-weight: 500;
+  }
+
+  .modal-price {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .modal-description {
+    color: var(--color-neutral-medium);
+  }
+
+  .modal-ingredients-title {
+    font-weight: 700;
+    color: var(--color-neutral-dark);
+  }
+
+  /* Badges */
+  .popular-badge {
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+  }
+
+  .spicy-badge {
+    background-color: var(--color-warning);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .ingredient-tag {
+    background-color: var(--color-neutral-light);
+    color: var(--color-neutral-dark);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid var(--color-border);
+  }
+
+  /* Boutons du modal */
+  .modal-order-btn {
+    background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+    color: white;
+    font-weight: 700;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .modal-order-btn:hover {
+    background: linear-gradient(to right, var(--color-secondary), var(--color-warning));
+    transform: scale(1.05);
+  }
+
+  .modal-favorite-btn {
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+    background: white;
+    cursor: pointer;
+  }
+
+  .modal-favorite-btn:hover {
+    background-color: var(--color-primary);
+    color: white;
+    transform: scale(1.05);
   }
 
   /* Animation de défilement continu */
@@ -344,6 +515,10 @@ import { dishes } from '../data/dishes.js';
 
   /* Responsive : plus rapide sur mobile */
   @media (max-width: 768px) {
+    .dish-carousel-title {
+      font-size: 2rem;
+    }
+
     .carousel-container {
       height: 200px; /* Hauteur fixe mobile */
     }
@@ -354,6 +529,15 @@ import { dishes } from '../data/dishes.js';
 
     .dish-slide {
       width: 240px !important;
+    }
+
+    .modal-content {
+      margin: 1rem;
+      max-width: calc(100vw - 2rem);
+    }
+
+    #modalImage {
+      height: 200px;
     }
 
     @keyframes scroll-horizontal {
@@ -386,18 +570,6 @@ import { dishes } from '../data/dishes.js';
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Modal responsive */
-  @media (max-width: 640px) {
-    .modal-content {
-      margin: 1rem;
-      max-width: calc(100vw - 2rem);
-    }
-
-    #modalImage {
-      height: 200px;
-    }
-  }
-
   /* Smooth scroll pour le modal */
   .modal-content {
     max-height: 90vh;
@@ -406,12 +578,12 @@ import { dishes } from '../data/dishes.js';
 
   /* Amélioration de l'accessibilité */
   .dish-slide:focus {
-    outline: 3px solid #fbbf24;
+    outline: 3px solid var(--color-accent);
     outline-offset: 2px;
   }
 
   /* Animation du badge prix */
-  .dish-slide:hover .bg-yellow-400 {
+  .dish-slide:hover .dish-hover-divider {
     animation: bounceIn 0.6s ease-out;
   }
 
