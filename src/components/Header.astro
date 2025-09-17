@@ -1,5 +1,5 @@
 ---
-// src/components/Header.astro - Version améliorée
+// src/components/Header.astro - Version debug
 ---
 
 <header class="fixed top-0 w-full z-50 bg-red-700/95 backdrop-blur-md shadow-xl transition-all duration-300" id="header">
@@ -38,7 +38,8 @@
       </div>
     </nav>
   </div>
-  <!-- Menu Lateral Droit - Sans transparence -->
+
+  <!-- Menu Lateral Droit -->
   <div id="mobile-menu" class="menu-overlay fixed top-0 right-0 h-full w-full md:w-96 bg-red-900 transform translate-x-full transition-all duration-500 ease-out shadow-2xl z-40">
     <!-- Background Pattern décoratif -->
     <div class="absolute inset-0 opacity-10">
@@ -70,7 +71,7 @@
             🏠 Accueil
           </a>
 
-          <a href="#plats" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
+          <a href="#nos-plats" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
             🍽️ Nos Plats
           </a>
 
@@ -78,11 +79,11 @@
             📋 La Carte
           </a>
 
-          <a href="#restaurant" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
+          <a href="#le-restaurant" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
             📸 Le Restaurant
           </a>
 
-          <a href="#avis" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
+          <a href="#avis-clients" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
             ⭐ Avis Clients
           </a>
 
@@ -90,24 +91,6 @@
             📞 Contact
           </a>
         </nav>
-      </div>
-
-      <!-- Footer du menu avec infos contact -->
-      <div class="p-6 border-t border-yellow-400/20">
-        <div class="space-y-3 text-white/90 text-sm">
-          <div class="flex items-center gap-3">
-            <span class="text-yellow-400">📞</span>
-            <span>+33 1 45 67 89 10</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-yellow-400">📍</span>
-            <span>456 Rue des Tropiques, Paris</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-yellow-400">🕒</span>
-            <span>Mar-Dim: 18h-2h</span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -118,18 +101,42 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Header script chargé');
+
+    // Récupération des éléments DOM avec debug
     const header = document.getElementById('header');
-    const burgerBtn = document.getElementById('burger-menu');
+    const burgerBtn = document.getElementById('burger-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const closeMenu = document.getElementById('close-menu');
     const menuBackdrop = document.getElementById('menu-backdrop');
     const navItems = document.querySelectorAll('.nav-item');
     const burgerLines = document.querySelectorAll('.burger-line');
 
+    // Debug des éléments trouvés
+    console.log('🔍 Éléments DOM:', {
+      header: !!header,
+      burgerBtn: !!burgerBtn,
+      mobileMenu: !!mobileMenu,
+      closeMenu: !!closeMenu,
+      menuBackdrop: !!menuBackdrop,
+      navItems: navItems.length
+    });
+
+    // Debug des sections cibles
+    console.log('🎯 Sections trouvées sur la page:');
+    ['hero', 'nos-plats', 'menu', 'le-restaurant', 'avis-clients', 'contact'].forEach(id => {
+      const element = document.getElementById(id);
+      console.log(`  #${id}:`, !!element);
+      if (!element) {
+        console.warn(`❌ Section #${id} introuvable !`);
+      }
+    });
+
     let isMenuOpen = false;
 
     // Fonction pour ouvrir le menu
     function openMenu() {
+      console.log('🍔 Ouverture du menu');
       isMenuOpen = true;
 
       // Afficher le menu latéral - glisse depuis la droite
@@ -162,6 +169,7 @@
 
     // Fonction pour fermer le menu
     function closeMenuFunc() {
+      console.log('❌ Fermeture du menu');
       isMenuOpen = false;
 
       // Cacher le menu latéral - glisse vers la droite
@@ -187,47 +195,81 @@
       item.style.transition = 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
     });
 
-    // Event listeners
-    burgerBtn?.addEventListener('click', () => {
-      if (isMenuOpen) {
-        closeMenuFunc();
-      } else {
-        openMenu();
-      }
-    });
+    // Event listeners avec debug
+    if (burgerBtn) {
+      burgerBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        console.log('🖱️ Clic burger, menu ouvert:', isMenuOpen);
+        if (isMenuOpen) {
+          closeMenuFunc();
+        } else {
+          openMenu();
+        }
+      });
+      console.log('✅ Event listener burger ajouté');
+    } else {
+      console.error('❌ Burger button non trouvé !');
+    }
 
-    closeMenu?.addEventListener('click', closeMenuFunc);
+    if (closeMenu) {
+      closeMenu.addEventListener('click', closeMenuFunc);
+      console.log('✅ Event listener fermer ajouté');
+    }
 
     // Fermer quand on clique sur un lien de navigation
-    navItems.forEach(item => {
-      item.addEventListener('click', (e) => {
-        // Petite pause pour l'effet visuel
-        setTimeout(closeMenuFunc, 200);
+    navItems.forEach((item, index) => {
+      item.addEventListener('click', function(e) {
+        const href = item.getAttribute('href');
+        console.log(`🔗 Clic navigation ${index + 1}:`, href);
+
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const targetElement = document.querySelector(href);
+          console.log(`🎯 Cible "${href}":`, !!targetElement);
+
+          if (targetElement) {
+            // Fermer le menu d'abord
+            setTimeout(() => {
+              closeMenuFunc();
+              // Puis scroll vers la section avec offset
+              setTimeout(() => {
+                const headerHeight = header ? header.offsetHeight : 80;
+                const elementPosition = targetElement.offsetTop;
+                const offsetPosition = elementPosition - headerHeight - 0; // 20px de marge
+
+                window.scrollTo({
+                  top: Math.max(0, offsetPosition), // Évite les valeurs négatives
+                  behavior: 'smooth'
+                });
+              }, 300);
+            }, 200);
+          } else {
+            console.warn(`❌ Section ${href} non trouvée !`);
+          }
+        }
       });
     });
 
     // Fermer avec la touche Escape
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && isMenuOpen) {
         closeMenuFunc();
       }
     });
 
     // Fermer en cliquant sur l'overlay sombre
-    menuBackdrop?.addEventListener('click', () => {
-      if (isMenuOpen) {
-        closeMenuFunc();
-      }
-    });
+    if (menuBackdrop) {
+      menuBackdrop.addEventListener('click', closeMenuFunc);
+    }
 
-    // EFFET DE SCROLL CORRIGÉ - SANS translateY(-100%)
+    // Effet de scroll pour le header
     let lastScrollY = window.scrollY;
     let ticking = false;
 
     function updateHeader() {
       const currentScrollY = window.scrollY;
 
-      // Changement de transparence seulement
+      // Changement de transparence
       if (currentScrollY > 50) {
         header.classList.remove('bg-red-700/95');
         header.classList.add('bg-red-700');
@@ -236,26 +278,12 @@
         header.classList.remove('bg-red-700');
       }
 
-      // AUTO-HIDE/SHOW DÉSACTIVÉ - causait des problèmes de layout
-      // Le code ci-dessous est commenté pour éviter les problèmes
-      /*
-      if (!isMenuOpen) {
-        if (currentScrollY > lastScrollY && currentScrollY > 200) {
-          header.style.transform = 'translateY(-100%)'; // PROBLÉMATIQUE
-        } else {
-          header.style.transform = 'translateY(0)';
-        }
-      }
-      */
-
-      // ALTERNATIVE : Réduction de l'opacité au lieu de cacher complètement
+      // Réduction de l'opacité lors du scroll
       if (!isMenuOpen) {
         if (currentScrollY > lastScrollY && currentScrollY > 200) {
           header.style.opacity = '0.7';
-          header.style.pointerEvents = 'none'; // Évite les interactions parasites
         } else {
           header.style.opacity = '1';
-          header.style.pointerEvents = 'auto';
         }
       }
 
@@ -263,29 +291,12 @@
       ticking = false;
     }
 
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', function() {
       if (!ticking) {
         requestAnimationFrame(updateHeader);
         ticking = true;
       }
     }, { passive: true });
-
-    // Smooth scroll pour les liens d'ancre
-    navItems.forEach(link => {
-      link.addEventListener('click', (e) => {
-        const href = link.getAttribute('href');
-        if (href && href.startsWith('#')) {
-          e.preventDefault();
-          const targetElement = document.querySelector(href);
-          if (targetElement) {
-            targetElement.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }
-        }
-      });
-    });
   });
 </script>
 
@@ -293,7 +304,6 @@
   /* Transitions douces pour le header */
   #header {
     transition: background-color 0.3s ease, opacity 0.3s ease;
-    /* Plus de transition sur transform pour éviter les problèmes */
   }
 
   /* Animation hover pour les nav items */
@@ -334,22 +344,13 @@
     }
   }
 
-  /* Effet de glow sur le logo */
-  #header:hover .bg-gradient-to-r {
-    box-shadow: 0 0 20px rgba(255, 212, 63, 0.5);
-  }
-
   /* Animation des éléments décoratifs */
   .animate-pulse {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   @keyframes pulse {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: .5;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: .5; }
   }
 </style>

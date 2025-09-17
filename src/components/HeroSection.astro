@@ -17,7 +17,7 @@
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30"></div>
 
     <!-- Overlay coloré pour garder l'identité sud-américaine -->
-    <div class="absolute inset-0 bg-gradient-to-br from-red-700/40 via-orange-600/30 to-yellow-400/20"></div>
+    <div class="hero-overlay-colored"></div>
 
     <!-- Particules décoratives animées -->
     <div class="particles absolute inset-0">
@@ -34,7 +34,7 @@
   <div class="hero-content relative z-20 text-center pb-20 w-full mx-auto pt-24 md:pt-32" style="max-width: none; display: flex; flex-direction: column; align-items: center;">
     <!-- Titre principal avec effet typewriter -->
     <h1 class="hero-title mb-8">
-      <span class="font-['Dancing_Script'] text-6xl md:text-8xl lg:text-9xl font-bold text-yellow-400 drop-shadow-2xl block leading-none mb-4 hero-text-shadow">
+      <span class="font-script text-6xl md:text-8xl lg:text-9xl font-bold text-yellow-400 drop-shadow-2xl block leading-none mb-4 hero-text-shadow">
         ¡Bienvenidos!
       </span>
       <span class="font-heading text-2xl md:text-4xl lg:text-5xl text-white font-light tracking-wide block hero-text-shadow">
@@ -130,7 +130,7 @@
     let ticking = false;
     let lastScrollY = 0;
 
-    const heroBg = document.querySelector('.hero-bg');
+    const heroBg = document.querySelector('.hero-bg') as HTMLElement;
     const heroContent = document.querySelector('.hero-content');
     const heroSection = document.querySelector('.hero-section');
 
@@ -156,7 +156,7 @@
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     // Animation des particules - optimisée
-    const particles = document.querySelectorAll('.particle');
+    const particles = document.querySelectorAll('.particle') as NodeListOf<HTMLElement>;
     particles.forEach((particle, index) => {
       // Position aléatoire
       particle.style.left = Math.random() * 100 + '%';
@@ -198,6 +198,27 @@
     min-height: 100vh;
     position: relative;
   }
+
+  /* Overlay coloré avec variables CSS */
+  .hero-overlay-colored {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom right,
+      rgba(196, 30, 58, 0.4),
+      rgba(255, 107, 53, 0.3),
+      rgba(255, 210, 63, 0.2)
+    );
+  }
+
+  /* Remplacements simples des couleurs Tailwind */
+  .text-yellow-400 { color: var(--color-accent) !important; }
+  .bg-yellow-400 { background-color: var(--color-accent) !important; }
+  .bg-orange-600 { background-color: var(--color-secondary) !important; }
+  .bg-green-500 { background-color: var(--color-success) !important; }
+  .group-hover\:text-yellow-400:hover { color: var(--color-accent) !important; }
+  .group-hover\:text-yellow-300:hover { color: rgba(255, 210, 63, 0.8) !important; }
+  .group-hover\:bg-green-400:hover { background-color: #16a34a !important; }
+  .hover\:border-yellow-400\/50:hover { border-color: rgba(255, 210, 63, 0.5) !important; }
 
   /* Animation float optimisée */
   @keyframes float {
