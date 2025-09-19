@@ -8,7 +8,7 @@
 
 /* Variables personnalisées */
 :root {
-  --color-primary: #C41E3A;
+  --color-primary: rgba(185, 28, 28, 0.95);
   --color-secondary: #FF6B35;
   --color-accent: #FFD23F;
   --color-neutral-dark: #2F1B14;

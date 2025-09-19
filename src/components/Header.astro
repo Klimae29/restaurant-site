@@ -2,7 +2,9 @@
 // src/components/Header.astro - Version debug
 ---
 
-<header class="fixed top-0 w-full z-50 bg-red-700/95 backdrop-blur-md shadow-xl transition-all duration-300" id="header">
+<header class="fixed top-0 w-full z-50 backdrop-blur-md shadow-xl transition-all duration-300"
+        style="background-color: var(--color-primary)"
+        id="header">
     <div class="w-full px-6">
       <nav class="flex items-center justify-between py-4">
 
@@ -65,7 +67,7 @@
       </div>
 
       <!-- Navigation principale -->
-      <div class="flex-1 flex flex-col justify-center px-6 py-8 bg-red-800">
+      <div class="flex-1 flex flex-col justify-center px-6 py-8 bg-red-800 rounded-bl-lg">
         <nav class="space-y-6">
           <a href="#hero" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
             🏠 Accueil
@@ -83,9 +85,9 @@
             📸 Le Restaurant
           </a>
 
-          <a href="#avis-clients" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
+          <!-- <a href="#avis-clients" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
             ⭐ Avis Clients
-          </a>
+          </a> -->
 
           <a href="#contact" class="nav-item block py-4 px-6 text-xl font-medium text-white hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-all duration-300 transform hover:translateX(5px) border-l-4 border-transparent hover:border-yellow-400">
             📞 Contact
